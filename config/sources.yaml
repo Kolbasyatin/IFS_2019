@@ -1,0 +1,17 @@
+parameters:
+  sources:
+    type: !php/const App\Services\DataProviders\Factories\ProviderFactory::YAML_TYPE
+    sources:
+      - name: !php/const App\Lib\Sources::MDS_VOICE
+        informer:
+          type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
+          url: 'url1'
+          login: 'login1'
+          password: 'pass1'
+
+      - name: !php/const App\Lib\Sources::MDS_MUSIC
+        informer:
+          type: !php/const App\Lib\DataProviderTypes::MPD_TYPE
+          url: 'url2'
+          login: 'login2'
+          password: 'pass2'

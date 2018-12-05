@@ -1,3 +1,5 @@
+imports:
+    - { resource: 'sources.yaml' }
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -26,3 +28,34 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Services\DataProviders\Factories\ProviderFactory:
+        arguments:
+              - '@service_container'
+              - '%sources%'
+
+    App\Services\DataProviders\Factories\ProviderFactoryInterface:
+        public: true
+        factory: 'App\Services\DataProviders\Factories\ProviderFactory:create'
+
+    App\Services\DataProviders\Factories\AbstractProviderFactory:
+        public: true
+        abstract: true
+        arguments: ['%sources%', '@service_container']
+
+    App\Services\DataProviders\Factories\YamlProviderFactory:
+        parent: App\Services\DataProviders\Factories\AbstractProviderFactory
+        autowire: false
+        autoconfigure: false
+
+
+    App\Services\DataProviders\Factories\EntityProviderFactory:
+        parent: App\Services\DataProviders\Factories\AbstractProviderFactory
+        autowire: false
+        autoconfigure: false
+
+    App\Services\DataProviders\MpdDataProvider:
+        public: true
+
+    App\Services\DataProviders\JsonDataProvider:
+        public: true
+

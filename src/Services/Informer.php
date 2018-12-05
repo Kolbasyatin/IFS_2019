@@ -7,36 +7,32 @@ namespace App\Services;
 use App\Lib\Exceptions\InformerException;
 use App\Lib\Info\InfoAnswer;
 use App\Lib\Info\InfoQuery;
-use App\Services\DataProviders\DataProviderFactory;
-use App\Services\DataProviders\DataQueryFactory;
+use App\Services\DataProviders\Factories\AbstractProviderFactory;
+use App\Services\DataProviders\Factories\ProviderFactoryInterface;
 use App\Services\Fillers\FillerFactory;
 
 class Informer
 {
-    /** @var DataQueryFactory */
-    private $dataQueryFactory;
-
-    /** @var DataProviderFactory */
-    private $dataProviderFactory;
 
     /** @var FillerFactory */
     private $fillerFactory;
 
+    /** @var AbstractProviderFactory  */
+    private $providerFactory;
+
 
     /**
      * Informer constructor.
-     * @param DataQueryFactory $dataQueryFactory
-     * @param DataProviderFactory $dataProviderFactory
      * @param FillerFactory $fillerFactory
+     * @param AbstractProviderFactory $factory
      */
     public function __construct(
-        DataQueryFactory $dataQueryFactory,
-        DataProviderFactory $dataProviderFactory,
-        FillerFactory $fillerFactory
+        FillerFactory $fillerFactory,
+        ProviderFactoryInterface $factory
     ) {
-        $this->dataQueryFactory = $dataQueryFactory;
-        $this->dataProviderFactory = $dataProviderFactory;
+
         $this->fillerFactory = $fillerFactory;
+        $this->providerFactory = $factory;
     }
 
 
@@ -44,10 +40,8 @@ class Informer
     {
         $answer = new  InfoAnswer();
         try {
-            $providerTypeQuery = $this->dataQueryFactory->createProviderType($infoQuery);
-            $provider = $this->dataProviderFactory->create($providerTypeQuery);
-            $providerDataQuery = $this->dataQueryFactory->createProviderQuery($infoQuery);
-            $data = $provider->getData($providerDataQuery);
+            $provider = $this->providerFactory->create($infoQuery->getSource());
+            $data = $provider->getData();
             $filler = $this->fillerFactory->getFiller($provider->getType());
             $filler->fill($data, $answer);
         } catch (InformerException $e) {

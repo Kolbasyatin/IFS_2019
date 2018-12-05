@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Lib\Info\InfoQuery;
 use App\Services\Informer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,9 @@ class InformerController extends AbstractController
      */
     public function index(Informer $informer)
     {
-        $a = 'b';
+        $query = new InfoQuery();
+        $query->setSource('voice');
+        $data = $informer->getInfo($query);
+        $b = 'c';
     }
 }
