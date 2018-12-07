@@ -8,9 +8,10 @@ use App\Lib\Info\InfoAnswer;
 use App\Lib\Info\InfoQuery;
 use App\Services\DataProviders\DataProviderInterface;
 use App\Services\Informer;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class InformerTest extends WebTestCase
+class InformerTest extends TestCase
 {
 
     /** @var Informer */

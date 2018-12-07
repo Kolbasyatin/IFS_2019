@@ -5,10 +5,8 @@ namespace App\Services\DataProviders\Factories;
 
 
 
-use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\FactoryDataProviderException;
 use App\Services\DataProviders\DataProviderInterface;
-use App\Services\DataProviders\MpdDataProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractProviderFactory implements ProviderFactoryInterface
@@ -51,7 +49,7 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
                 $type = $config->getProviderType();
                 $serviceName = sprintf('App\Services\DataProviders\\%sDataProvider', ucfirst($type));
                 if($this->container->has($serviceName)){
-                    return $this->container->get($serviceName);
+                    return $this->container->get($serviceName)->setConfig($config);
                 }
             }
         }

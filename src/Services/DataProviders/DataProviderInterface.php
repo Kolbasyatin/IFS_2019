@@ -5,6 +5,7 @@ namespace App\Services\DataProviders;
 
 
 use App\Lib\Exceptions\DataProviderException;
+use App\Services\DataProviders\Factories\ProviderConfigInterface;
 
 interface DataProviderInterface
 {
@@ -13,6 +14,8 @@ interface DataProviderInterface
      * @throws DataProviderException
      */
     public function getData();
+
+    public function setConfig(ProviderConfigInterface $config): DataProviderInterface;
 
     public function getType(): string;
 }

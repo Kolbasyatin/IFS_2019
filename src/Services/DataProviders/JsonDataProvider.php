@@ -5,10 +5,12 @@ namespace App\Services\DataProviders;
 
 
 use App\Lib\DataProviderTypes;
-use App\Lib\Exceptions\DataProviderException;
 
-class JsonDataProvider implements DataProviderInterface
+class JsonDataProvider extends AbstractDataProvider
 {
+
+    private $client;
+
     public function getData()
     {
         return 'json!';

@@ -53,9 +53,17 @@ services:
         autowire: false
         autoconfigure: false
 
-    App\Services\DataProviders\MpdDataProvider:
+    App\Services\DataProviders\AbstractDataProvider:
         public: true
+        abstract: true
+
+    App\Services\DataProviders\MpdDataProvider:
+        parent: App\Services\DataProviders\AbstractDataProvider
+        autowire: false
+        autoconfigure: false
 
     App\Services\DataProviders\JsonDataProvider:
-        public: true
+        parent: App\Services\DataProviders\AbstractDataProvider
+        autowire: false
+        autoconfigure: false
 

@@ -9,13 +9,13 @@ use App\Lib\Info\InfoAnswer;
 use App\Lib\Info\InfoQuery;
 use App\Services\DataProviders\Factories\AbstractProviderFactory;
 use App\Services\DataProviders\Factories\ProviderFactoryInterface;
-use App\Services\Fillers\FillerFactory;
+use App\Services\Fillers\FillerManager;
 
 class Informer
 {
 
-    /** @var FillerFactory */
-    private $fillerFactory;
+    /** @var FillerManager */
+    private $fillerManager;
 
     /** @var AbstractProviderFactory  */
     private $providerFactory;
@@ -23,15 +23,15 @@ class Informer
 
     /**
      * Informer constructor.
-     * @param FillerFactory $fillerFactory
-     * @param AbstractProviderFactory $factory
+     * @param FillerManager $fillerManager
+     * @param ProviderFactoryInterface $factory
      */
     public function __construct(
-        FillerFactory $fillerFactory,
+        FillerManager $fillerManager,
         ProviderFactoryInterface $factory
     ) {
 
-        $this->fillerFactory = $fillerFactory;
+        $this->fillerManager = $fillerManager;
         $this->providerFactory = $factory;
     }
 
@@ -42,8 +42,8 @@ class Informer
         try {
             $provider = $this->providerFactory->create($infoQuery->getSource());
             $data = $provider->getData();
-            $filler = $this->fillerFactory->getFiller($provider->getType());
-            $filler->fill($data, $answer);
+            $this->fillerManager->fill($data, $provider->getType(), $answer);
+
         } catch (InformerException $e) {
             $answer->setStatus('error')->setErrorReason($e->getMessage());
         }
