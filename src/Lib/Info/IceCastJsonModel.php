@@ -4,6 +4,8 @@
 namespace App\Lib\Info;
 
 
+use Symfony\Component\Validator\Constraints\DateTime;
+
 class IceCastJsonModel
 {
     /** @var string */
@@ -47,6 +49,15 @@ class IceCastJsonModel
 
     /** @var string|null */
     private $dummy;
+
+    /**
+     * IceCastJsonModel constructor.
+     */
+    public function __construct()
+    {
+        $this->streamStartIso8601 = new DateTime();
+    }
+
 
     /**
      * @return string
