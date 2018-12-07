@@ -10,8 +10,22 @@ use App\Lib\Info\InfoAnswer;
 class FillerManager
 {
 
-    /** @var FillerInterface[] */
+    /** @var \SplObjectStorage|FillerInterface[] */
     private $fillers;
+
+    /**
+     * FillerManager constructor.
+     */
+    public function __construct()
+    {
+        $this->fillers = new \SplObjectStorage();
+    }
+
+
+    public function addFiller(FillerInterface $filler): void
+    {
+        $this->fillers->attach($filler);
+    }
 
     /**
      * @param $data

@@ -13,7 +13,7 @@ interface DataProviderInterface
      * @return mixed
      * @throws DataProviderException
      */
-    public function getData();
+    public function getData(): array;
 
     public function setConfig(ProviderConfigInterface $config): DataProviderInterface;
 

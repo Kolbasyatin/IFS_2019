@@ -5,7 +5,7 @@ parameters:
       - name: !php/const App\Lib\Sources::MDS_VOICE
         informer:
           type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
-          url: 'url1'
+          url: 'http://ice.planeset.ru:8000/status-json.xsl'
           login: 'login1'
           password: 'pass1'
 
@@ -15,3 +15,6 @@ parameters:
           url: 'url2'
           login: 'login2'
           password: 'pass2'
+  json_mapping:
+    !php/const App\Lib\Sources::MDS_VOICE: 'http://ice.planeset.ru:8000/mds_voice.mp3'
+    !php/const App\Lib\Sources::MDS_MUSIC: 'http://ice.planeset.ru:8000/mds.mp3'

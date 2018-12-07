@@ -6,12 +6,12 @@ namespace App\Tests\Services;
 
 use App\Lib\Info\InfoAnswer;
 use App\Lib\Info\InfoQuery;
+use App\Lib\Sources;
 use App\Services\DataProviders\DataProviderInterface;
 use App\Services\Informer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class InformerTest extends TestCase
+class InformerTest extends WebTestCase
 {
 
     /** @var Informer */
@@ -27,10 +27,11 @@ class InformerTest extends TestCase
         $this->service = static::$container->get(Informer::class);
     }
 
-
-    public function testGetInfoSuccessful(): void
+    /** @dataProvider dataProvider */
+    public function testGetInfoSuccessful($source): void
     {
         $query = new InfoQuery();
+        $query->setSource(Sources::MDS_VOICE);
         /** @var InfoAnswer $actual */
         $actual = $this->service->getInfo($query);
         $this->assertEquals('online', $actual->getStatus());
@@ -61,5 +62,12 @@ class InformerTest extends TestCase
     private function createDataProviderMock()
     {
         $dataProviderMock = $this->createMock(DataProviderInterface::class);
+    }
+
+    public function dataProvider(): iterable
+    {
+        yield [Sources::MDS_VOICE];
+        yield [Sources::MDS_MUSIC];
+        yield ['fakeSource'];
     }
 }

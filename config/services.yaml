@@ -18,7 +18,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php,Lib}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -63,7 +63,14 @@ services:
         autoconfigure: false
 
     App\Services\DataProviders\JsonDataProvider:
+        arguments:
+            - '@App\Services\DataProviders\Clients\GuzzleClient'
+            - '%json_mapping%'
         parent: App\Services\DataProviders\AbstractDataProvider
         autowire: false
         autoconfigure: false
+
+    App\Services\Fillers\FillerManager:
+        calls:
+            - [addFiller, ['@App\Services\Fillers\IceCastJsonFiller']]
 

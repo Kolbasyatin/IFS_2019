@@ -11,9 +11,9 @@ class MpdDataProvider extends AbstractDataProvider
 
 
 
-    public function getData()
+    public function getData(): array
     {
-        return 'data!';
+        return [];
     }
 
     public function getType(): string
