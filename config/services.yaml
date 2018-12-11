@@ -44,6 +44,8 @@ services:
 
     App\Services\DataProviders\Factories\YamlProviderFactory:
         parent: App\Services\DataProviders\Factories\AbstractProviderFactory
+        arguments:
+            $serializer: '@Symfony\Component\Serializer\SerializerInterface'
         autowire: false
         autoconfigure: false
 

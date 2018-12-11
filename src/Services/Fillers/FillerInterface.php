@@ -14,7 +14,7 @@ interface FillerInterface
      * @param InfoAnswer $answer
      * @throws FillerException
      */
-    public function fill($data, InfoAnswer $answer): void;
+    public function fill(array $data, InfoAnswer $answer): void;
 
     public function isSupport(string $type): string;
 

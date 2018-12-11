@@ -5,6 +5,7 @@ namespace App\Services\DataProviders\Factories;
 
 
 
+use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\FactoryDataProviderException;
 use App\Services\DataProviders\DataProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -36,17 +37,17 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
 
     /**
      * @param string $sourceName
+     * @param string|null $type
      * @return DataProviderInterface|object
      * @throws FactoryDataProviderException
      */
-    public function create(string $sourceName): DataProviderInterface
+    public function create(string $sourceName, string $type = DataProviderTypes::JSON_TYPE): DataProviderInterface
     {
         foreach ($this->providerConfigs as $config) {
             if (!$config instanceof ProviderConfigInterface) {
                 throw new FactoryDataProviderException('Wrong config interface.');
             }
-            if ($config->getSource() === $sourceName) {
-                $type = $config->getProviderType();
+            if ($config->getSource() === $sourceName && $type === $config->getProviderType()) {
                 $serviceName = sprintf('App\Services\DataProviders\\%sDataProvider', ucfirst($type));
                 if($this->container->has($serviceName)){
                     return $this->container->get($serviceName)->setConfig($config);
@@ -54,7 +55,7 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
             }
         }
 
-        throw new FactoryDataProviderException('Can not create Data Provider '.$serviceName);
+        throw new FactoryDataProviderException('Can not create Data Provider '.$type);
     }
 
 }

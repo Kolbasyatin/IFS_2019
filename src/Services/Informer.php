@@ -42,10 +42,11 @@ class Informer
         try {
             $provider = $this->providerFactory->create($infoQuery->getSource());
             $data = $provider->getData();
+            $answer->setSource($infoQuery->getSource());
             $this->fillerManager->fill($data, $provider->getType(), $answer);
 
         } catch (InformerException $e) {
-            $answer->setStatus('error')->setErrorReason($e->getMessage());
+            $answer->setStatus(InfoAnswer::ERROR_STATUS)->setErrorReason($e->getMessage());
         }
 
         return $answer;

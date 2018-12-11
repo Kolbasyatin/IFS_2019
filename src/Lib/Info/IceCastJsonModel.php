@@ -4,74 +4,67 @@
 namespace App\Lib\Info;
 
 
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 class IceCastJsonModel
 {
-    /** @var string */
+    /** @var string|null
+     */
     private $audioInfo;
 
-    /** @var int */
+    /** @var int|null */
     private $channels;
 
-    /** @var string */
+    /** @var string|null */
     private $genre;
 
-    /** @var int */
+    /** @var int|null */
     private $listenerPeak;
 
-    /** @var int */
+    /** @var int|null */
     private $listeners;
 
-    /** @var string */
+    /** @var string|null */
     private $listenUrl;
 
-    /** @var int */
+    /** @var int|null */
     private $sampleRate;
 
-    /** @var string */
+    /** @var string|null */
     private $serverDescription;
 
-    /** @var string */
+    /** @var string|null */
     private $serverName;
 
-    /** @var string */
+    /** @var string|null */
     private $serverType;
 
-//    /** @var \DateTime */
-//    private $streamStart;
+    /** @var \DateTime|null */
+    private $streamStart;
 
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     private $streamStartIso8601;
 
-    /** @var string */
+    /** @var string|null */
     private $title;
 
     /** @var string|null */
     private $dummy;
 
     /**
-     * IceCastJsonModel constructor.
+     * @return string|null
      */
-    public function __construct()
-    {
-        $this->streamStartIso8601 = new DateTime();
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getAudioInfo(): string
+    public function getAudioInfo(): ?string
     {
         return $this->audioInfo;
     }
 
     /**
-     * @param string $audioInfo
+     * @param string|null $audioInfo
      * @return IceCastJsonModel
      */
-    public function setAudioInfo(string $audioInfo): IceCastJsonModel
+    public function setAudioInfo(?string $audioInfo): IceCastJsonModel
     {
         $this->audioInfo = $audioInfo;
 
@@ -79,18 +72,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getChannels(): int
+    public function getChannels(): ?int
     {
         return $this->channels;
     }
 
     /**
-     * @param int $channels
+     * @param string|null $channels
      * @return IceCastJsonModel
      */
-    public function setChannels(int $channels): IceCastJsonModel
+    public function setChannels(?int $channels): IceCastJsonModel
     {
         $this->channels = $channels;
 
@@ -98,18 +91,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGenre(): string
+    public function getGenre(): ?string
     {
         return $this->genre;
     }
 
     /**
-     * @param string $genre
+     * @param string|null $genre
      * @return IceCastJsonModel
      */
-    public function setGenre(string $genre): IceCastJsonModel
+    public function setGenre(?string $genre): IceCastJsonModel
     {
         $this->genre = $genre;
 
@@ -117,18 +110,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getListenerPeak(): int
+    public function getListenerPeak(): ?int
     {
         return $this->listenerPeak;
     }
 
     /**
-     * @param int $listenerPeak
+     * @param int|null $listenerPeak
      * @return IceCastJsonModel
      */
-    public function setListenerPeak(int $listenerPeak): IceCastJsonModel
+    public function setListenerPeak(?int $listenerPeak): IceCastJsonModel
     {
         $this->listenerPeak = $listenerPeak;
 
@@ -136,18 +129,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getListeners(): int
+    public function getListeners(): ?int
     {
         return $this->listeners;
     }
 
     /**
-     * @param int $listeners
+     * @param string|null $listeners
      * @return IceCastJsonModel
      */
-    public function setListeners(int $listeners): IceCastJsonModel
+    public function setListeners(?int $listeners): IceCastJsonModel
     {
         $this->listeners = $listeners;
 
@@ -155,18 +148,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getListenUrl(): string
+    public function getListenUrl(): ?string
     {
         return $this->listenUrl;
     }
 
     /**
-     * @param string $listenUrl
+     * @param string|null $listenUrl
      * @return IceCastJsonModel
      */
-    public function setListenUrl(string $listenUrl): IceCastJsonModel
+    public function setListenUrl(?string $listenUrl): IceCastJsonModel
     {
         $this->listenUrl = $listenUrl;
 
@@ -174,18 +167,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getSampleRate(): int
+    public function getSampleRate(): ?int
     {
         return $this->sampleRate;
     }
 
     /**
-     * @param int $sampleRate
+     * @param int|null $sampleRate
      * @return IceCastJsonModel
      */
-    public function setSampleRate(int $sampleRate): IceCastJsonModel
+    public function setSampleRate(?int $sampleRate): IceCastJsonModel
     {
         $this->sampleRate = $sampleRate;
 
@@ -193,18 +186,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getServerDescription(): string
+    public function getServerDescription(): ?string
     {
         return $this->serverDescription;
     }
 
     /**
-     * @param string $serverDescription
+     * @param string|null $serverDescription
      * @return IceCastJsonModel
      */
-    public function setServerDescription(string $serverDescription): IceCastJsonModel
+    public function setServerDescription(?string $serverDescription): IceCastJsonModel
     {
         $this->serverDescription = $serverDescription;
 
@@ -212,18 +205,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getServerName(): string
+    public function getServerName(): ?string
     {
         return $this->serverName;
     }
 
     /**
-     * @param string $serverName
+     * @param string|null $serverName
      * @return IceCastJsonModel
      */
-    public function setServerName(string $serverName): IceCastJsonModel
+    public function setServerName(?string $serverName): IceCastJsonModel
     {
         $this->serverName = $serverName;
 
@@ -231,56 +224,56 @@ class IceCastJsonModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getServerType(): string
+    public function getServerType(): ?string
     {
         return $this->serverType;
     }
 
     /**
-     * @param string $serverType
+     * @param string|null $serverType
      * @return IceCastJsonModel
      */
-    public function setServerType(string $serverType): IceCastJsonModel
+    public function setServerType(?string $serverType): IceCastJsonModel
     {
         $this->serverType = $serverType;
 
         return $this;
     }
 
-//    /**
-//     * @return \DateTime
-//     */
-//    public function getStreamStart(): \DateTime
-//    {
-//        return $this->streamStart;
-//    }
-//
-//    /**
-//     * @param \DateTime $streamStart
-//     * @return IceCastJsonModel
-//     */
-//    public function setStreamStart(\DateTime $streamStart): IceCastJsonModel
-//    {
-//        $this->streamStart = $streamStart;
-//
-//        return $this;
-//    }
+    /**
+     * @return \DateTime|null
+     */
+    public function getStreamStart(): ?\DateTime
+    {
+        return $this->streamStart;
+    }
 
     /**
-     * @return \DateTime
+     * @param \DateTime|null $streamStart
+     * @return IceCastJsonModel
      */
-    public function getStreamStartIso8601(): \DateTime
+    public function setStreamStart(?\DateTime $streamStart): IceCastJsonModel
+    {
+        $this->streamStart = $streamStart;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getStreamStartIso8601(): ?\DateTime
     {
         return $this->streamStartIso8601;
     }
 
     /**
-     * @param \DateTime $streamStartIso8601
+     * @param \DateTime|null $streamStartIso8601
      * @return IceCastJsonModel
      */
-    public function setStreamStartIso8601(\DateTime $streamStartIso8601): IceCastJsonModel
+    public function setStreamStartIso8601(?\DateTime $streamStartIso8601): IceCastJsonModel
     {
         $this->streamStartIso8601 = $streamStartIso8601;
 
@@ -288,18 +281,18 @@ class IceCastJsonModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $title
+     * @param string|null $title
      * @return IceCastJsonModel
      */
-    public function setTitle(string $title): IceCastJsonModel
+    public function setTitle(?string $title): IceCastJsonModel
     {
         $this->title = $title;
 
@@ -325,6 +318,13 @@ class IceCastJsonModel
         return $this;
     }
 
+    public function fillAnswer(InfoAnswer $answer): void
+    {
+        $answer
+            ->setListeners($this->getListeners())
+            ->setSongName($this->getTitle())
 
+            ;
+    }
 
 }

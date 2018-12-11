@@ -6,6 +6,11 @@ namespace App\Lib\Info;
 
 class InfoAnswer
 {
+
+    public const ONLINE_STATUS = 'online';
+
+    public const ERROR_STATUS = 'error';
+
     /** @var string */
     private $source;
 
@@ -15,7 +20,7 @@ class InfoAnswer
     /** @var int */
     private $listeners;
 
-    /** @var int */
+    /** @var string */
     private $songName;
 
     /** @var string */
@@ -97,18 +102,18 @@ class InfoAnswer
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getSongName(): int
+    public function getSongName(): string
     {
         return $this->songName;
     }
 
     /**
-     * @param int $songName
+     * @param string $songName
      * @return InfoAnswer
      */
-    public function setSongName(int $songName): InfoAnswer
+    public function setSongName(string $songName): InfoAnswer
     {
         $this->songName = $songName;
 

@@ -30,7 +30,11 @@ class JsonDataProvider extends AbstractDataProvider
      */
     public function getData(): array
     {
-        $url = $this->config->getAddress();
+        if (!$this->config) {
+            throw new DataProviderException('There is no config for current DataProvider.');
+        }
+
+        $url = $this->config->getUrl();
         $login = '';
         $password = '';
         $json = $this->client->execute($url, $login, $password);

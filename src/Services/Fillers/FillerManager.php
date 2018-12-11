@@ -39,6 +39,7 @@ class FillerManager
         foreach ($this->fillers as $filler) {
             if ($filler->isSupport($type)) {
                 $filler->fill($data, $answer);
+                $answer->setStatus(InfoAnswer::ONLINE_STATUS);
                 $wasFilled = true;
                 break;
             }

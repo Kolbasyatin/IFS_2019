@@ -10,7 +10,7 @@ interface ProviderConfigInterface
 
     public function getProviderType(): string;
 
-    public function getAddress(): string;
+    public function getUrl(): string;
 
     public function getLogin(): string;
 

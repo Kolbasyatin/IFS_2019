@@ -9,7 +9,7 @@ use App\Services\DataProviders\Factories\ProviderConfigInterface;
 abstract class AbstractDataProvider implements DataProviderInterface
 {
 
-    /** @var ProviderConfigInterface */
+    /** @var ProviderConfigInterface|null */
     protected $config;
 
 

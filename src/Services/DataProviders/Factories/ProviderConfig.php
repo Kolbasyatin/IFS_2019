@@ -20,7 +20,7 @@ class ProviderConfig implements ProviderConfigInterface
     private $password;
 
     /** @var string */
-    private $address;
+    private $url;
 
     /**
      * @return string
@@ -76,12 +76,12 @@ class ProviderConfig implements ProviderConfigInterface
     }
 
     /**
-     * @param string $address
+     * @param string $url
      * @return ProviderConfig
      */
-    public function setAddress(string $address): ProviderConfig
+    public function setUrl(string $url): ProviderConfig
     {
-        $this->address = $address;
+        $this->url = $url;
 
         return $this;
     }
@@ -91,9 +91,9 @@ class ProviderConfig implements ProviderConfigInterface
         return $this->type;
     }
 
-    public function getAddress(): string
+    public function getUrl(): string
     {
-        return $this->address;
+        return $this->url;
     }
 
     public function getLogin(): string
@@ -112,7 +112,7 @@ class ProviderConfig implements ProviderConfigInterface
         $instance
             ->setSource($source)
             ->setType($type)
-            ->setAddress($url)
+            ->setUrl($url)
             ->setLogin($login)
             ->setPassword($password);
 
