@@ -7,33 +7,39 @@ namespace App\Tests\Services;
 use App\Lib\Info\InfoAnswer;
 use App\Lib\Info\InfoQuery;
 use App\Lib\Sources;
+use App\Services\DataProviders\Clients\GuzzleClient;
 use App\Services\DataProviders\DataProviderInterface;
-use App\Services\Informer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Services\Informer;
 
 class InformerTest extends WebTestCase
 {
 
-    /** @var Informer */
-    private $service;
+//    /** @var Informer */
+//    private $service;
+//
+//    public static function setUpBeforeClass()
+//    {
+//        static::bootKernel();
+//    }
 
-    public static function setUpBeforeClass()
-    {
-        static::bootKernel();
-    }
-
-    protected function setUp()
-    {
-        $this->service = static::$container->get(Informer::class);
-    }
+//    protected function setUp()
+//    {
+//        $this->service = static::$container->get(Informer::class);
+//    }
 
     /** @dataProvider dataProvider */
     public function testGetInfoSuccessful($source): void
     {
+
+        $mock = $this->createMock(GuzzleClient::class);
+        static::bootKernel();
+        static::$container->set('guzzle.client', $mock);
+
         $query = new InfoQuery();
         $query->setSource(Sources::MDS_VOICE);
         /** @var InfoAnswer $actual */
-        $actual = $this->service->getInfo($query);
+        $actual = static::$container->get(Informer::class)->getInfo($query);
         $this->assertEquals('online', $actual->getStatus());
 
     }

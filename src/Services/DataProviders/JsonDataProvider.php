@@ -38,6 +38,9 @@ class JsonDataProvider extends AbstractDataProvider
         $login = '';
         $password = '';
         $json = $this->client->execute($url, $login, $password);
+        if (empty($json) || !$data = json_decode($json, true)) {
+            throw new DataProviderException('Bad json from client!');
+        }
         $data = json_decode($json, true);
 
         return $this->parseAndReturnData($data);
@@ -50,7 +53,10 @@ class JsonDataProvider extends AbstractDataProvider
      */
     private function parseAndReturnData(array $data): array
     {
-        $mapping = $this->mappings[$this->config->getSource()];
+        $mapping = $this->mappings[$this->config->getSource()] ?? null;
+        if (null === $mapping) {
+            throw new DataProviderException('No required mapping for json data provider.');
+        }
         try {
             $raw = reset($data)['source'];
 

@@ -14,18 +14,15 @@ class YamlProviderFactoryTest extends WebTestCase
     public function testCreate()
     {
         self::bootKernel();
-        $sources = [Sources::MDS_VOICE, Sources::MDS_MUSIC];
-        foreach ($sources as $source) {
-            $actual = self::$container->get(YamlProviderFactory::class)->create($source);
-            $config = self::$container->getParameter('sources')['sources'];
-            $actualConfig = array_filter(
-                $config,
-                function ($element) use ($source){
-                    return $element['name'] === $source;
-                }
-            );
-            $actualConfig = reset($actualConfig)['informer'];
-            $this->assertEquals($actualConfig['type'], $actual->getType());
+        $sources = [
+            Sources::MDS_VOICE => 'mpd',
+            Sources::MDS_VOICE => 'json',
+            Sources::MDS_MUSIC => 'mpd',
+            Sources::MDS_MUSIC => 'json',
+        ];
+        foreach ($sources as $source => $provider) {
+            $actual = self::$container->get(YamlProviderFactory::class)->create($source, $provider);
+            $this->assertEquals($provider, $actual->getType());
         }
 
     }

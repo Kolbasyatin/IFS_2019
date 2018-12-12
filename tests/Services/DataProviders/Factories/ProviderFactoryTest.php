@@ -16,8 +16,7 @@ class ProviderFactoryTest extends WebTestCase
     public function testCreateYaml()
     {
         self::bootKernel();
-        $parameters = self::$container->getParameter('sources');
-        $type = $parameters['type'];
+        $type = ProviderFactory::YAML_TYPE;
         $actual = self::$container->get(ProviderFactoryInterface::class);
         if (ProviderFactory::YAML_TYPE === $type) {
             $this->assertInstanceOf(YamlProviderFactory::class, $actual);
