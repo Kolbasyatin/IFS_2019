@@ -21,7 +21,6 @@ class GuzzleClient implements ClientInterface
         $this->client = new Client();
     }
 
-
     public function execute(string $address, string $login, string $password): string
     {
         try {
