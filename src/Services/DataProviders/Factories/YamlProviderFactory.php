@@ -4,6 +4,7 @@
 namespace App\Services\DataProviders\Factories;
 
 
+use App\Entity\Source;
 use App\Lib\Exceptions\FactoryDataProviderException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -24,32 +25,40 @@ class YamlProviderFactory extends AbstractProviderFactory
 
     /**
      * @param array $config
-     * @return void
+     * @return array
      * @throws FactoryDataProviderException
      */
-    protected function createProviderConfigs(array $config): void
+    protected function createProviderConfigs(array $config): array
     {
+        $providerConfigs = [];
         $sources = $config['sources'] ?? null;
-        if (null === $sources) {
+        if (null === $sources || !is_iterable($sources)) {
             throw new FactoryDataProviderException('Wrong yaml config in sources description file!');
         }
         try {
             foreach ($sources as $source) {
+                $sourceInstance = new Source();
+                $sourceInstance
+                    ->setName($source['name'])
+                    ->setPriority($source['priority'] ?? null);
                 foreach ($source['informers'] as $informerConfig) {
                     $providerConfig = new ProviderConfig();
-                    $providerConfig->setSource($source['name']);
+                    $providerConfig->setSource($sourceInstance);
                     $this->serializer->denormalize(
                         $informerConfig,
                         ProviderConfig::class,
-                    null,
+                        null,
                         [
-                            'object_to_populate' => $providerConfig
+                            'object_to_populate' => $providerConfig,
                         ]
                     );
-                    $this->providerConfigs[] = $providerConfig;
+                    $providerConfigs[] = $providerConfig;
                 }
 
             }
+
+            return $providerConfigs;
+
         } catch (\Exception $e) {
             throw new FactoryDataProviderException('Wrong yaml config in sources description file!');
         }

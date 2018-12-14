@@ -10,4 +10,6 @@ use App\Services\DataProviders\DataProviderInterface;
 interface ProviderFactoryInterface
 {
     public function create(string $sourceName, string $type = DataProviderTypes::JSON_TYPE): DataProviderInterface;
+
+    public function getSources(): array;
 }

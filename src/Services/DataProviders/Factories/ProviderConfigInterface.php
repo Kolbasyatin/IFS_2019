@@ -4,9 +4,11 @@
 namespace App\Services\DataProviders\Factories;
 
 
+use App\Entity\Source;
+
 interface ProviderConfigInterface
 {
-    public function getSource(): string;
+    public function getSource(): Source;
 
     public function getProviderType(): string;
 

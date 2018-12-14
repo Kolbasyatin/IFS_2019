@@ -4,10 +4,12 @@
 namespace App\Services\DataProviders\Factories;
 
 
+use App\Entity\Source;
+
 class ProviderConfig implements ProviderConfigInterface
 {
 
-    /** @var string */
+    /** @var Source */
     private $source;
 
     /** @var string */
@@ -23,18 +25,18 @@ class ProviderConfig implements ProviderConfigInterface
     private $url;
 
     /**
-     * @return string
+     * @return Source
      */
-    public function getSource(): string
+    public function getSource(): Source
     {
         return $this->source;
     }
 
     /**
-     * @param string $source
+     * @param Source $source
      * @return ProviderConfig
      */
-    public function setSource(string $source): ProviderConfig
+    public function setSource(Source $source): ProviderConfig
     {
         $this->source = $source;
 

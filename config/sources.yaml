@@ -3,6 +3,7 @@ parameters:
     type: !php/const App\Services\DataProviders\Factories\ProviderFactory::YAML_TYPE
     sources:
       - name: !php/const App\Lib\Sources::MDS_VOICE
+        priority: 10
         informers:
           - type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
             url: 'http://ice.planeset.ru:8000/status-json.xsl'
@@ -12,6 +13,7 @@ parameters:
             password: 'pass1'
 
       - name: !php/const App\Lib\Sources::MDS_MUSIC
+        priority: 20
         informers:
           - type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
             url: 'http://ice.planeset.ru:8000/status-json.xsl'

@@ -4,7 +4,6 @@
 namespace App\Services\DataProviders\Factories;
 
 
-
 use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\FactoryDataProviderException;
 use App\Services\DataProviders\DataProviderInterface;
@@ -29,11 +28,11 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
      */
     public function __construct(array $config, ContainerInterface $container)
     {
-        $this->createProviderConfigs($config);
+        $this->providerConfigs = $this->createProviderConfigs($config);
         $this->container = $container;
     }
 
-    abstract protected function createProviderConfigs(array $config): void;
+    abstract protected function createProviderConfigs(array $config): array;
 
     /**
      * @param string $sourceName
@@ -47,15 +46,26 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
             if (!$config instanceof ProviderConfigInterface) {
                 throw new FactoryDataProviderException('Wrong config interface.');
             }
-            if ($config->getSource() === $sourceName && $type === $config->getProviderType()) {
+            $source = $config->getSource();
+            if ($source->getName() === $sourceName && $type === $config->getProviderType()) {
                 $serviceName = sprintf('App\Services\DataProviders\\%sDataProvider', ucfirst($type));
-                if($this->container->has($serviceName)){
+                if ($this->container->has($serviceName)) {
                     return $this->container->get($serviceName)->setConfig($config);
                 }
             }
         }
 
         throw new FactoryDataProviderException('Can not create Data Provider '.$type);
+    }
+
+    public function getSources(): array
+    {
+        $result = [];
+        foreach ($this->providerConfigs as $config) {
+            $result[] = $config->getSource();
+        }
+
+        return array_values(array_unique($result));
     }
 
 }

@@ -9,6 +9,9 @@ class InfoQuery
     /** @var string */
     private $source;
 
+    /** @var string */
+    private $providerType;
+
     /**
      * @return string
      */
@@ -26,6 +29,22 @@ class InfoQuery
         $this->source = $source;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderType(): string
+    {
+        return $this->providerType;
+    }
+
+    /**
+     * @param string $providerType
+     */
+    public function setProviderType(string $providerType): void
+    {
+        $this->providerType = $providerType;
     }
 
 

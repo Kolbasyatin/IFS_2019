@@ -4,6 +4,7 @@
 namespace App\Tests\Services\DataProviders;
 
 
+use App\Entity\Source;
 use App\Lib\Exceptions\DataProviderException;
 use App\Lib\Sources;
 use App\Services\DataProviders\Clients\GuzzleClient;
@@ -20,7 +21,8 @@ class JsonDataProviderTest extends TestCase
         $client->expects($this->once())->method('execute')->willReturn($json);
 
         $config = new ProviderConfig();
-        $config->setSource(Sources::MDS_VOICE);
+        $source = new Source();
+        $config->setSource($source->setName(Sources::MDS_VOICE));
         $config->setUrl('fakeUrl');
 
         $mappings = [

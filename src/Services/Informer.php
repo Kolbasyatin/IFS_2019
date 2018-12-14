@@ -46,9 +46,12 @@ class Informer
             $this->fillerManager->fill($data, $provider->getType(), $answer);
 
         } catch (InformerException $e) {
+            $answer->setSource($infoQuery->getSource());
             $answer->setStatus(InfoAnswer::ERROR_STATUS)->setErrorReason($e->getMessage());
         }
 
         return $answer;
     }
+
+
 }

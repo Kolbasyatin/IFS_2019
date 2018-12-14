@@ -26,4 +26,5 @@ class ProviderFactoryTest extends WebTestCase
         }
 
     }
+
 }

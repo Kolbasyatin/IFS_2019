@@ -53,7 +53,7 @@ class JsonDataProvider extends AbstractDataProvider
      */
     private function parseAndReturnData(array $data): array
     {
-        $mapping = $this->mappings[$this->config->getSource()] ?? null;
+        $mapping = $this->mappings[$this->config->getSource()->getName()] ?? null;
         if (null === $mapping) {
             throw new DataProviderException('No required mapping for json data provider.');
         }

@@ -17,31 +17,31 @@ class InfoAnswer
     /** @var string */
     private $status;
 
-    /** @var int */
+    /** @var int|null */
     private $listeners;
 
-    /** @var string */
+    /** @var string|null */
     private $songName;
 
-    /** @var string */
+    /** @var string|null */
     private $previousSong;
 
-    /** @var string */
+    /** @var string|null */
     private $nextSong;
 
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     private $startTime;
 
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     private $endTime;
 
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     private $currentTime;
 
-    /** @var \DateInterval */
+    /** @var \DateInterval|null */
     private $lengthTime;
 
-    /** @var string */
+    /** @var string|null */
     private $errorReason;
 
     /**
@@ -83,18 +83,18 @@ class InfoAnswer
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getListeners(): int
+    public function getListeners(): ?int
     {
         return $this->listeners;
     }
 
     /**
-     * @param int $listeners
+     * @param int|null $listeners
      * @return InfoAnswer
      */
-    public function setListeners(int $listeners): InfoAnswer
+    public function setListeners(?int $listeners): InfoAnswer
     {
         $this->listeners = $listeners;
 
@@ -102,18 +102,18 @@ class InfoAnswer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSongName(): string
+    public function getSongName(): ?string
     {
         return $this->songName;
     }
 
     /**
-     * @param string $songName
+     * @param string|null $songName
      * @return InfoAnswer
      */
-    public function setSongName(string $songName): InfoAnswer
+    public function setSongName(?string $songName): InfoAnswer
     {
         $this->songName = $songName;
 
@@ -121,18 +121,18 @@ class InfoAnswer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPreviousSong(): string
+    public function getPreviousSong(): ?string
     {
         return $this->previousSong;
     }
 
     /**
-     * @param string $previousSong
+     * @param string|null $previousSong
      * @return InfoAnswer
      */
-    public function setPreviousSong(string $previousSong): InfoAnswer
+    public function setPreviousSong(?string $previousSong): InfoAnswer
     {
         $this->previousSong = $previousSong;
 
@@ -140,18 +140,18 @@ class InfoAnswer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNextSong(): string
+    public function getNextSong(): ?string
     {
         return $this->nextSong;
     }
 
     /**
-     * @param string $nextSong
+     * @param string|null $nextSong
      * @return InfoAnswer
      */
-    public function setNextSong(string $nextSong): InfoAnswer
+    public function setNextSong(?string $nextSong): InfoAnswer
     {
         $this->nextSong = $nextSong;
 
@@ -159,18 +159,18 @@ class InfoAnswer
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getStartTime(): \DateTime
+    public function getStartTime(): ?\DateTime
     {
         return $this->startTime;
     }
 
     /**
-     * @param \DateTime $startTime
+     * @param \DateTime|null $startTime
      * @return InfoAnswer
      */
-    public function setStartTime(\DateTime $startTime): InfoAnswer
+    public function setStartTime(?\DateTime $startTime): InfoAnswer
     {
         $this->startTime = $startTime;
 
@@ -178,18 +178,18 @@ class InfoAnswer
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getEndTime(): \DateTime
+    public function getEndTime(): ?\DateTime
     {
         return $this->endTime;
     }
 
     /**
-     * @param \DateTime $endTime
+     * @param \DateTime|null $endTime
      * @return InfoAnswer
      */
-    public function setEndTime(\DateTime $endTime): InfoAnswer
+    public function setEndTime(?\DateTime $endTime): InfoAnswer
     {
         $this->endTime = $endTime;
 
@@ -197,18 +197,18 @@ class InfoAnswer
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getCurrentTime(): \DateTime
+    public function getCurrentTime(): ?\DateTime
     {
         return $this->currentTime;
     }
 
     /**
-     * @param \DateTime $currentTime
+     * @param \DateTime|null $currentTime
      * @return InfoAnswer
      */
-    public function setCurrentTime(\DateTime $currentTime): InfoAnswer
+    public function setCurrentTime(?\DateTime $currentTime): InfoAnswer
     {
         $this->currentTime = $currentTime;
 
@@ -216,18 +216,18 @@ class InfoAnswer
     }
 
     /**
-     * @return \DateInterval
+     * @return \DateInterval|null
      */
-    public function getLengthTime(): \DateInterval
+    public function getLengthTime(): ?\DateInterval
     {
         return $this->lengthTime;
     }
 
     /**
-     * @param \DateInterval $lengthTime
+     * @param \DateInterval|null $lengthTime
      * @return InfoAnswer
      */
-    public function setLengthTime(\DateInterval $lengthTime): InfoAnswer
+    public function setLengthTime(?\DateInterval $lengthTime): InfoAnswer
     {
         $this->lengthTime = $lengthTime;
 
@@ -235,25 +235,23 @@ class InfoAnswer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getErrorReason(): string
+    public function getErrorReason(): ?string
     {
         return $this->errorReason;
     }
 
     /**
-     * @param string $errorReason
+     * @param string|null $errorReason
      * @return InfoAnswer
      */
-    public function setErrorReason(string $errorReason): InfoAnswer
+    public function setErrorReason(?string $errorReason): InfoAnswer
     {
         $this->errorReason = $errorReason;
 
         return $this;
     }
-
-
 
 
 }
