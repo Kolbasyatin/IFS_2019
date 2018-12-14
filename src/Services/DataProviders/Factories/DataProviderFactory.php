@@ -7,32 +7,30 @@ namespace App\Services\DataProviders\Factories;
 use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\FactoryDataProviderException;
 use App\Services\DataProviders\DataProviderInterface;
+use App\Services\DataProviders\Factories\Config\FactoryConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-abstract class AbstractProviderFactory implements ProviderFactoryInterface
+class DataProviderFactory
 {
+    private const DEFAULT_PROVIDER_TYPE = DataProviderTypes::JSON_TYPE;
 
-    /** @var array */
+
+    /** @var FactoryConfigInterface */
     protected $config;
-
-    /** @var ProviderConfigInterface[] */
-    protected $providerConfigs = [];
 
     /** @var ContainerInterface */
     private $container;
 
     /**
      * AbstractProviderFactory constructor.
-     * @param array $config
      * @param ContainerInterface $container
+     * @param FactoryConfigInterface $config
      */
-    public function __construct(array $config, ContainerInterface $container)
+    public function __construct(ContainerInterface $container, FactoryConfigInterface $config)
     {
-        $this->providerConfigs = $this->createProviderConfigs($config);
         $this->container = $container;
+        $this->config = $config;
     }
-
-    abstract protected function createProviderConfigs(array $config): array;
 
     /**
      * @param string $sourceName
@@ -40,9 +38,16 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
      * @return DataProviderInterface|object
      * @throws FactoryDataProviderException
      */
-    public function create(string $sourceName, string $type = DataProviderTypes::JSON_TYPE): DataProviderInterface
+    public function create(string $sourceName, ?string $type = null): DataProviderInterface
     {
-        foreach ($this->providerConfigs as $config) {
+        if (null === $type) {
+            $type = static::DEFAULT_PROVIDER_TYPE;
+        }
+        $providerConfig = $this->config->getConfig();
+        if (!$providerConfig) {
+            throw new FactoryDataProviderException('No config!');
+        }
+        foreach ($providerConfig as $config) {
             if (!$config instanceof ProviderConfigInterface) {
                 throw new FactoryDataProviderException('Wrong config interface.');
             }
@@ -58,14 +63,14 @@ abstract class AbstractProviderFactory implements ProviderFactoryInterface
         throw new FactoryDataProviderException('Can not create Data Provider '.$type);
     }
 
-    public function getSources(): array
-    {
-        $result = [];
-        foreach ($this->providerConfigs as $config) {
-            $result[] = $config->getSource();
-        }
-
-        return array_values(array_unique($result));
-    }
+//    public function getSources(): array
+//    {
+//        $result = [];
+//        foreach ($this->providerConfigs as $config) {
+//            $result[] = $config->getSource();
+//        }
+//
+//        return array_values(array_unique($result));
+//    }
 
 }

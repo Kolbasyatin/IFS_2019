@@ -1,6 +1,6 @@
 parameters:
   sources:
-    type: !php/const App\Services\DataProviders\Factories\ProviderFactory::YAML_TYPE
+    type: !php/const App\Services\DataProviders\Factories\Config\ProviderConfigFactory::YAML_TYPE
     sources:
       - name: !php/const App\Lib\Sources::MDS_VOICE
         priority: 10

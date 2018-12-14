@@ -6,9 +6,9 @@ namespace App\Services;
 
 use App\Lib\Exceptions\InformerException;
 use App\Lib\Info\InfoAnswer;
-use App\Lib\Info\InfoQuery;
-use App\Services\DataProviders\Factories\AbstractProviderFactory;
-use App\Services\DataProviders\Factories\ProviderFactoryInterface;
+use App\Services\DataProviders\Factories\Config\FactoryConfigInterface;
+use App\Services\DataProviders\Factories\DataProviderFactory;
+use App\Services\DataProviders\Factories\ProviderConfigInterface;
 use App\Services\Fillers\FillerManager;
 
 class Informer
@@ -17,41 +17,63 @@ class Informer
     /** @var FillerManager */
     private $fillerManager;
 
-    /** @var AbstractProviderFactory  */
+    /** @var DataProviderFactory  */
     private $providerFactory;
+    /**
+     * @var FactoryConfigInterface
+     */
+    private $factoryConfig;
 
 
     /**
      * Informer constructor.
      * @param FillerManager $fillerManager
-     * @param ProviderFactoryInterface $factory
+     * @param DataProviderFactory $factory
      */
     public function __construct(
         FillerManager $fillerManager,
-        ProviderFactoryInterface $factory
+        DataProviderFactory $factory,
+        FactoryConfigInterface $factoryConfig
     ) {
 
         $this->fillerManager = $fillerManager;
         $this->providerFactory = $factory;
+        $this->factoryConfig = $factoryConfig;
     }
 
 
-    public function getInfo(InfoQuery $infoQuery): InfoAnswer
+    public function getInfo(string $sourceName, string $providerType = null): InfoAnswer
     {
         $answer = new  InfoAnswer();
         try {
-            $provider = $this->providerFactory->create($infoQuery->getSource());
+            $provider = $this->providerFactory->create($sourceName, $providerType);
             $data = $provider->getData();
-            $answer->setSource($infoQuery->getSource());
+            $answer->setSource($sourceName);
             $this->fillerManager->fill($data, $provider->getType(), $answer);
 
         } catch (InformerException $e) {
-            $answer->setSource($infoQuery->getSource());
+            $answer->setSource($sourceName);
             $answer->setStatus(InfoAnswer::ERROR_STATUS)->setErrorReason($e->getMessage());
         }
 
         return $answer;
     }
 
+    public function getSources()
+    {
+        $result = [];
+        /** @var ProviderConfigInterface $config */
+        foreach ($this->factoryConfig->getConfig() as $config) {
+            $source = $config->getSource();
+            if (! ($result[$source->getName()] ?? null)) {
+                $result[$source->getName()][] = $source;
+            }
+
+        }
+
+        $result = array_merge(...array_values($result));
+
+        return $result;
+    }
 
 }

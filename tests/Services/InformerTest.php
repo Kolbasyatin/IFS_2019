@@ -4,42 +4,26 @@
 namespace App\Tests\Services;
 
 
+use App\Entity\Source;
 use App\Lib\Exceptions\DataClientException;
 use App\Lib\Info\InfoAnswer;
-use App\Lib\Info\InfoQuery;
 use App\Lib\Sources;
 use App\Services\DataProviders\Clients\GuzzleClient;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Services\Informer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class InformerTest extends WebTestCase
 {
 
-//    /** @var Informer */
-//    private $service;
-//
-//    public static function setUpBeforeClass()
-//    {
-//        static::bootKernel();
-//    }
-
-//    protected function setUp()
-//    {
-//        $this->service = static::$container->get(Informer::class);
-//    }
-
     public function testGetInfoSuccessful(): void
     {
 
         $this->init($this->getJsonData());
 
-        $query = new InfoQuery();
-        $query->setSource(Sources::MDS_VOICE);
         /** @var InfoAnswer $actual */
-        $actual = static::$container->get(Informer::class)->getInfo($query);
+        $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
         $this->assertEquals('online', $actual->getStatus());
 
         /** @var Serializer $serializer */
@@ -55,10 +39,8 @@ class InformerTest extends WebTestCase
     public function testGetInfoErrorSource(): void
     {
         $this->init('');
-        $query = new InfoQuery();
-        $query->setSource(Sources::MDS_VOICE);
         /** @var InfoAnswer $actual */
-        $actual = static::$container->get(Informer::class)->getInfo($query);
+        $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
         $this->assertEquals('error', $actual->getStatus());
         $this->assertSame('Bad json from client!', $actual->getErrorReason());
     }
@@ -68,13 +50,22 @@ class InformerTest extends WebTestCase
         $mock = $this->createMock(GuzzleClient::class);
         $mock->expects($this->once())->method('execute')->willThrowException(new DataClientException('Error for test.'));
         $this->init('', $mock);
-        $query = new InfoQuery();
-        $query->setSource(Sources::MDS_VOICE);
         /** @var InfoAnswer $actual */
-        $actual = static::$container->get(Informer::class)->getInfo($query);
+        $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
         $this->assertEquals('error', $actual->getStatus());
         $this->assertEquals('Error for test.', $actual->getErrorReason());
-    } 
+    }
+
+    public function testGetSources()
+    {
+        static::bootKernel();
+        $actual = static::$container->get(Informer::class)->getSources();
+        foreach ($actual as $source) {
+            /** @var Source $source */
+            $this->assertInstanceOf(Source::class, $source);
+            $this->assertContains($source->getName(), [Sources::MDS_VOICE, Sources::MDS_MUSIC]);
+        }
+    }
 
 
     private function getJsonData(): string

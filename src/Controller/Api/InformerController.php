@@ -20,12 +20,12 @@ class InformerController extends AbstractController
 
     /**
      * @Rest\Route("/sources")
-     * @param ProviderFactoryInterface $factory
+     * @param Informer $informer
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function sources(ProviderFactoryInterface $factory)
+    public function sources(Informer $informer)
     {
-        return $this->json($factory->getSources());
+        return $this->json($informer->getSources());
     }
 
     /**

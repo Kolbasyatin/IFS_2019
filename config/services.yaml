@@ -28,49 +28,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Services\DataProviders\Factories\ProviderFactory:
+    App\Services\DataProviders\Factories\Config\ProviderConfigFactory:
         arguments:
-              - '@service_container'
-              - '%sources%'
-
-    App\Services\DataProviders\Factories\ProviderFactoryInterface:
-        public: true
-        factory: 'App\Services\DataProviders\Factories\ProviderFactory:create'
-
-    App\Services\DataProviders\Factories\AbstractProviderFactory:
-        public: true
-        abstract: true
-        arguments: ['%sources%', '@service_container']
-
-    App\Services\DataProviders\Factories\YamlProviderFactory:
-        parent: App\Services\DataProviders\Factories\AbstractProviderFactory
+            $config: '%sources%'
+    App\Services\DataProviders\Factories\Config\YamlProviderConfig:
         arguments:
-            $serializer: '@Symfony\Component\Serializer\SerializerInterface'
-        autowire: false
-        autoconfigure: false
+            $config: '%sources%'
 
+    App\Services\DataProviders\Factories\Config\FactoryConfigInterface:
+        factory: 'App\Services\DataProviders\Factories\Config\ProviderConfigFactory:createConfig'
 
-    App\Services\DataProviders\Factories\EntityProviderFactory:
-        parent: App\Services\DataProviders\Factories\AbstractProviderFactory
-        autowire: false
-        autoconfigure: false
-
-    App\Services\DataProviders\AbstractDataProvider:
-        public: true
-        abstract: true
-
-    App\Services\DataProviders\MpdDataProvider:
-        parent: App\Services\DataProviders\AbstractDataProvider
-        autowire: false
-        autoconfigure: false
 
     App\Services\DataProviders\JsonDataProvider:
+        public: true
         arguments:
-            - '@App\Services\DataProviders\Clients\GuzzleClient'
-            - '%json_mapping%'
-        parent: App\Services\DataProviders\AbstractDataProvider
-        autowire: false
-        autoconfigure: false
+            $mappings: '%json_mapping%'
 
     App\Services\Fillers\FillerManager:
         calls:

@@ -6,7 +6,8 @@ namespace App\Services\DataProviders;
 
 use App\Services\DataProviders\Factories\ProviderConfigInterface;
 
-abstract class AbstractDataProvider implements DataProviderInterface
+trait ConfigAwareDataProviderTrait
+
 {
 
     /** @var ProviderConfigInterface|null */

@@ -1,37 +1,57 @@
 <?php
 
 
-namespace App\Services\DataProviders\Factories;
+namespace App\Services\DataProviders\Factories\Config;
 
 
 use App\Entity\Source;
 use App\Lib\Exceptions\FactoryDataProviderException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use App\Services\DataProviders\Factories\ProviderConfig;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class YamlProviderFactory extends AbstractProviderFactory
+/**
+ * Class YamlProviderConfig
+ * @package App\Services\DataProviders\Factories\Config
+ */
+class YamlProviderConfig implements FactoryConfigInterface
 {
+    /** @var array */
+    private $config;
 
     /** @var Serializer */
-    protected $serializer;
+    private $serializer;
 
-    public function __construct(array $config, ContainerInterface $container, SerializerInterface $serializer)
+    /**
+     * YamlProviderConfig constructor.
+     * @param array $config
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(array $config, SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        parent::__construct($config, $container);
+        $this->config = $config;
     }
 
 
     /**
-     * @param array $config
      * @return array
      * @throws FactoryDataProviderException
      */
-    protected function createProviderConfigs(array $config): array
+    public function getConfig(): array
+    {
+        return $this->createProviderConfigs();
+    }
+
+
+    /**
+     * @return array
+     * @throws FactoryDataProviderException
+     */
+    protected function createProviderConfigs(): array
     {
         $providerConfigs = [];
-        $sources = $config['sources'] ?? null;
+        $sources = $this->config['sources'] ?? null;
         if (null === $sources || !is_iterable($sources)) {
             throw new FactoryDataProviderException('Wrong yaml config in sources description file!');
         }
@@ -63,8 +83,5 @@ class YamlProviderFactory extends AbstractProviderFactory
             throw new FactoryDataProviderException('Wrong yaml config in sources description file!');
         }
 
-
     }
-
-
 }

@@ -8,7 +8,7 @@ use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\DataProviderException;
 use App\Services\DataProviders\Clients\GuzzleClient;
 
-class JsonDataProvider extends AbstractDataProvider
+class JsonDataProvider implements DataProviderInterface
 {
 
     /** @var GuzzleClient */
@@ -22,6 +22,8 @@ class JsonDataProvider extends AbstractDataProvider
         $this->client = $client;
         $this->mappings = $mappings;
     }
+
+    use ConfigAwareDataProviderTrait;
 
     /**
      * @return array

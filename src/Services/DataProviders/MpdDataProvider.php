@@ -6,9 +6,10 @@ namespace App\Services\DataProviders;
 
 use App\Lib\DataProviderTypes;
 
-class MpdDataProvider extends AbstractDataProvider
+class MpdDataProvider implements DataProviderInterface
 {
 
+    use ConfigAwareDataProviderTrait;
 
 
     public function getData(): array
