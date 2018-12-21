@@ -44,6 +44,9 @@ services:
         arguments:
             $mappings: '%json_mapping%'
 
+    App\Services\DataProviders\MpdDataProvider:
+        public: true
+
     App\Services\Fillers\FillerManager:
         calls:
             - [addFiller, ['@App\Services\Fillers\IceCastJsonFiller']]

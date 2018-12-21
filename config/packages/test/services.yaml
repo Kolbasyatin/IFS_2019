@@ -2,3 +2,4 @@ services:
   guzzle.client:
     alias: App\Services\DataProviders\Clients\GuzzleClient
     public: true
+
