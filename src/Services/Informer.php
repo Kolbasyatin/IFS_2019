@@ -29,6 +29,7 @@ class Informer
      * Informer constructor.
      * @param FillerManager $fillerManager
      * @param DataProviderFactory $factory
+     * @param FactoryConfigInterface $factoryConfig
      */
     public function __construct(
         FillerManager $fillerManager,
@@ -46,8 +47,8 @@ class Informer
     {
         $answer = new  InfoAnswer();
         try {
-            $provider = $this->providerFactory->create($sourceName, $providerType);
-            $data = $provider->getData();
+            $provider = $this->providerFactory->create($providerType);
+            $data = $provider->getData($sourceName);
             $answer->setSource($sourceName);
             $this->fillerManager->fill($data, $provider->getType(), $answer);
 
@@ -59,7 +60,7 @@ class Informer
         return $answer;
     }
 
-    public function getSources()
+    public function getSources(): array
     {
         $result = [];
         /** @var ProviderConfigInterface $config */

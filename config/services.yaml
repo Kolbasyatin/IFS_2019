@@ -50,4 +50,3 @@ services:
     App\Services\Fillers\FillerManager:
         calls:
             - [addFiller, ['@App\Services\Fillers\IceCastJsonFiller']]
-

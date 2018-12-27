@@ -1,5 +1,9 @@
 services:
-  guzzle.client:
-    alias: App\Services\DataProviders\Clients\GuzzleClient
+  test.json_client_map:
+    alias: App\Services\DataProviders\Clients\ClientMaps\JsonClientMap
+    public: true
+
+  test.mpd_client_map:
+    alias: App\Services\DataProviders\Clients\ClientMaps\MpdClientMap
     public: true
 

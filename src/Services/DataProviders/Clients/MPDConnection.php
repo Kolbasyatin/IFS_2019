@@ -9,50 +9,46 @@ use App\Lib\Exceptions\MPDConnectionException;
 /**
  * Class MPDConnection
  * @package App\Services\DataProviders\Clients
- * @internal $command status
- * @internal $command info
  */
 class MPDConnection
 {
-
     /**
      * @var
      */
     private $socket;
 
     /** @var string */
-    private $login;
+    private $url;
 
     /** @var string */
     private $password;
 
-    /** @var string */
-    private $url;
-
     /**
-     * @param string $address
-     * @param string $login
+     * MPDConnection constructor.
+     * @param string $url
      * @param string $password
      */
-    public function configure(string $address, string $login, string $password): void
+    public function __construct(string $url, string $password)
     {
-        $this->url = $address;
-        $this->login = $login;
         $this->password = $password;
+        $this->url = $url;
     }
 
+
     /**
-     * @param string $command
-     * @return string
+     * @param string|array $command
+     * @return array
      * @throws MPDConnectionException
      */
-    public function send(string $command): array
+    public function send($command): array
     {
         if (!$this->isConnected()) {
             $this->connect();
 
         }
-
+        if (!is_array($command)) {
+            $command = (array)$command;
+        }
         $this->sendQuestion($command);
         $data = $this->receiveAnswer();
 
@@ -102,10 +98,13 @@ class MPDConnection
 
     }
 
+    /**
+     * @throws MPDConnectionException
+     */
     private function sendPassword(): void
     {
         if ($this->password) {
-            $this->sendQuestion(sprintf('password %s', $this->password));
+            $this->sendQuestion((array)sprintf('password %s', $this->password));
         }
     }
 
@@ -117,9 +116,13 @@ class MPDConnection
         $this->receiveAnswer();
     }
 
-    private function sendQuestion(string $question): void
+    /**
+     * @param array $questionArray
+     * @throws MPDConnectionException
+     */
+    private function sendQuestion(array $questionArray): void
     {
-        $question .= "\n";
+        $question = implode("\n", $questionArray) . "\n";
         $result = socket_write($this->socket, $question, 1024);
         if (false === $result) {
             throw new MPDConnectionException('Can not write to socket!');

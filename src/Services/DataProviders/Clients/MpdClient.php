@@ -6,7 +6,7 @@ namespace App\Services\DataProviders\Clients;
 
 use App\Lib\Exceptions\DataClientException;
 
-class MpdClient
+class MpdClient implements ClientInterface
 {
 
     public const STATUS = 'status';
@@ -24,14 +24,7 @@ class MpdClient
     }
 
 
-    public function setConfig(string $address, string $login, string $password): MpdClient
-    {
-        $this->connection->configure($address, $login, $password);
-
-        return $this;
-    }
-
-    public function getStatus(): array
+    public function execute(): array
     {
         $command = self::STATUS;
 

@@ -17,14 +17,12 @@ class MpdDataProviderTest extends WebTestCase
         $config = $this->createConfig();
         $service->setConfig($config);
         $actual = $service->getData();
-        $a = 'b';
     }
 
     private function createConfig()
     {
         $config = new ProviderConfig();
         $config
-            ->setLogin('login')
             ->setPassword('Wkm2wD')
             ->setUrl('ice.planeset.ru:6601')
         ;

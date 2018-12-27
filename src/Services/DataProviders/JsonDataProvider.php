@@ -6,56 +6,51 @@ namespace App\Services\DataProviders;
 
 use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\DataProviderException;
-use App\Services\DataProviders\Clients\GuzzleClient;
+use App\Services\DataProviders\Clients\ClientMaps\ClientMapInterface;
+use App\Services\DataProviders\Clients\ClientMaps\JsonClientMap;
 
 class JsonDataProvider implements DataProviderInterface
 {
 
-    /** @var GuzzleClient */
-    private $client;
-
     /** @var array */
     private $mappings;
 
-    public function __construct(GuzzleClient $client, array $mappings)
+    /** @var ClientMapInterface */
+    private $clientMap;
+
+    public function __construct(JsonClientMap $clientMap, array $mappings)
     {
-        $this->client = $client;
         $this->mappings = $mappings;
+        $this->clientMap = $clientMap;
     }
 
-    use ConfigAwareDataProviderTrait;
-
     /**
+     * @param string $sourceName
      * @return array
-     * @throws \App\Lib\Exceptions\DataClientException
      * @throws DataProviderException
+     * @throws \App\Lib\Exceptions\DataClientException
      */
-    public function getData(): array
+    public function getData(string $sourceName): array
     {
-        if (!$this->config) {
-            throw new DataProviderException('There is no config for current DataProvider.');
-        }
 
-        $url = $this->config->getUrl();
-        $login = '';
-        $password = '';
-        $json = $this->client->execute($url, $login, $password);
+        $json = $this->clientMap->getClient($sourceName)->execute();
         if (empty($json) || !$data = json_decode($json, true)) {
             throw new DataProviderException('Bad json from client!');
         }
         $data = json_decode($json, true);
-
-        return $this->parseAndReturnData($data);
+        $mapping = $this->mappings[$sourceName] ?? null;
+        
+        return $this->parseAndReturnData($data, $mapping);
     }
 
     /**
      * @param array $data
+     * @param string|null $mapping
      * @return array
      * @throws DataProviderException
      */
-    private function parseAndReturnData(array $data): array
+    private function parseAndReturnData(array $data, ?string $mapping): array
     {
-        $mapping = $this->mappings[$this->config->getSource()->getName()] ?? null;
         if (null === $mapping) {
             throw new DataProviderException('No required mapping for json data provider.');
         }
@@ -64,7 +59,7 @@ class JsonDataProvider implements DataProviderInterface
 
             $result = array_filter(
                 $raw,
-                function ($data) use ($mapping){
+                function ($data) use ($mapping) {
                     return $data['listenurl'] === $mapping;
                 }
             );
@@ -76,7 +71,6 @@ class JsonDataProvider implements DataProviderInterface
         }
 
     }
-
 
 
     public function getType(): string

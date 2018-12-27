@@ -10,12 +10,10 @@ use App\Services\DataProviders\Factories\ProviderConfigInterface;
 interface DataProviderInterface
 {
     /**
+     * @param string $sourceName
      * @return mixed
-     * @throws DataProviderException
      */
-    public function getData(): array;
-
-    public function setConfig(ProviderConfigInterface $config): DataProviderInterface;
+    public function getData(string $sourceName): array;
 
     public function getType(): string;
 }
