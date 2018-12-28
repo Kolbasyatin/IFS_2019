@@ -4,7 +4,6 @@
 namespace App\Services\DataProviders\Clients\ClientMaps;
 
 
-use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\DataClientException;
 use App\Services\DataProviders\Clients\ClientInterface;
 use App\Services\DataProviders\Factories\Config\FactoryConfigInterface;
@@ -25,7 +24,7 @@ abstract class AbstractDataClientMap implements ClientMapInterface
     public function __construct(FactoryConfigInterface $configuration)
     {
         foreach ($configuration->getConfig() as $config) {
-            if ($config->getProviderType() === DataProviderTypes::JSON_TYPE) {
+            if ($config->getProviderType() === strtolower(static::TYPE)) {
                 $this->clients[$config->getSource()->getName()] = $this->createClient($config);
             }
         }

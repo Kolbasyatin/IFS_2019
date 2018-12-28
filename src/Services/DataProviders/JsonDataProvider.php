@@ -5,9 +5,11 @@ namespace App\Services\DataProviders;
 
 
 use App\Lib\DataProviderTypes;
+use App\Lib\Exceptions\DataClientException;
 use App\Lib\Exceptions\DataProviderException;
 use App\Services\DataProviders\Clients\ClientMaps\ClientMapInterface;
 use App\Services\DataProviders\Clients\ClientMaps\JsonClientMap;
+use App\Services\DataProviders\Clients\GuzzleClient;
 
 class JsonDataProvider implements DataProviderInterface
 {
@@ -28,12 +30,13 @@ class JsonDataProvider implements DataProviderInterface
      * @param string $sourceName
      * @return array
      * @throws DataProviderException
-     * @throws \App\Lib\Exceptions\DataClientException
+     * @throws DataClientException
      */
     public function getData(string $sourceName): array
     {
-
-        $json = $this->clientMap->getClient($sourceName)->execute();
+        /** @var GuzzleClient $client */
+        $client = $this->clientMap->getClient($sourceName);
+        $json = $client->execute();
         if (empty($json) || !$data = json_decode($json, true)) {
             throw new DataProviderException('Bad json from client!');
         }

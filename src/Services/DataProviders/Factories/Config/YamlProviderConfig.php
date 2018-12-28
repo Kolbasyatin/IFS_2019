@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class YamlProviderConfig implements FactoryConfigInterface
 {
-    /** @var array */
+    /** @var ProviderConfig[] */
     private $config;
 
     /** @var Serializer */
@@ -24,13 +24,14 @@ class YamlProviderConfig implements FactoryConfigInterface
 
     /**
      * YamlProviderConfig constructor.
-     * @param array $config
+     * @param array $yamlConfig
      * @param SerializerInterface $serializer
+     * @throws FactoryDataProviderException
      */
-    public function __construct(array $config, SerializerInterface $serializer)
+    public function __construct(array $yamlConfig, SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        $this->config = $config;
+        $this->config = $this->createProviderConfigs($yamlConfig);
     }
 
 
@@ -40,18 +41,23 @@ class YamlProviderConfig implements FactoryConfigInterface
      */
     public function getConfig(): array
     {
-        return $this->createProviderConfigs();
+        if (!$this->config) {
+            throw new FactoryDataProviderException('No config!');
+        }
+
+        return $this->config;
     }
 
 
     /**
-     * @return array
+     * @param array $yamlConfig
+     * @return ProviderConfig[]
      * @throws FactoryDataProviderException
      */
-    protected function createProviderConfigs(): array
+    protected function createProviderConfigs(array $yamlConfig): array
     {
         $providerConfigs = [];
-        $sources = $this->config['sources'] ?? null;
+        $sources = $yamlConfig['sources'] ?? null;
         if (null === $sources || !is_iterable($sources)) {
             throw new FactoryDataProviderException('Wrong yaml config in sources description file!');
         }

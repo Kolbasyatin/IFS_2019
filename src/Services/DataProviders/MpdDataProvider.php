@@ -7,6 +7,7 @@ namespace App\Services\DataProviders;
 use App\Lib\DataProviderTypes;
 use App\Services\DataProviders\Clients\ClientMaps\ClientMapInterface;
 use App\Services\DataProviders\Clients\ClientMaps\MpdClientMap;
+use App\Services\DataProviders\Clients\MpdClient;
 
 /**
  * Class MpdDataProvider
@@ -35,7 +36,10 @@ class MpdDataProvider implements DataProviderInterface
      */
     public function getData(string $sourceName): array
     {
-        return $this->clientMap->getClient($sourceName)->execute();
+        /** @var MpdClient $mpdClient */
+        $mpdClient = $this->clientMap->getClient($sourceName);
+
+        return $mpdClient->getStatus();
     }
 
     /**

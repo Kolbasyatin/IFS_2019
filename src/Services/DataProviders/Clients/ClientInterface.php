@@ -6,11 +6,9 @@ namespace App\Services\DataProviders\Clients;
 
 use App\Lib\Exceptions\DataClientException;
 
+/**
+ * @throws DataClientException
+ */
 interface ClientInterface
 {
-    /**
-     * @return mixed
-     * @throws DataClientException
-     */
-    public function execute();
 }

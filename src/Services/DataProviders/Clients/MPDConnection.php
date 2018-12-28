@@ -83,18 +83,23 @@ class MPDConnection
      */
     public function connect(): void
     {
-        [$url, $port] = explode(':', $this->url);
+        ['host' => $url, 'port' => $port] = parse_url($this->url);
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if (false === socket_connect($this->socket, $url, $port)) {
             throw new MPDConnectionException('No connection  to url '.$url);
         }
         $this->skipFirstAnswer();
-        $this->sendPassword();
-        $answer = $this->receiveAnswer();
-        $err = 'ACK [3@0]';
-        if (strncmp($err, trim(end($answer)), strlen($err)) === 0) {
-            throw new MPDConnectionException('Password is error');
+        if ($this->password) {
+            $this->sendPassword();
+            $answer = $this->receiveAnswer();
+            $err = 'ACK [3@0]';
+            if (strncmp($err, trim(end($answer)), strlen($err)) === 0) {
+                $this->disconnect();
+                throw new MPDConnectionException('Password is incorrect.');
+            }
         }
+
+
 
     }
 

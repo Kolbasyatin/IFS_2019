@@ -4,52 +4,51 @@
 namespace App\Tests\Services\DataProviders;
 
 
-use App\Entity\Source;
+use App\Lib\Exceptions\DataClientException;
 use App\Lib\Exceptions\DataProviderException;
 use App\Lib\Sources;
+use App\Services\DataProviders\Clients\ClientMaps\JsonClientMap;
 use App\Services\DataProviders\Clients\GuzzleClient;
-use App\Services\DataProviders\Factories\ProviderConfig;
 use App\Services\DataProviders\JsonDataProvider;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class JsonDataProviderTest
+ * @package App\Tests\Services\DataProviders
+ */
 class JsonDataProviderTest extends TestCase
 {
-    /** @dataProvider dataProvider */
-    public function testGetData($json, $expected, $exception = null)
+    /**
+     * @dataProvider dataProvider
+     * @throws DataProviderException
+     * @throws DataClientException
+     */
+    public function testGetData($json, $expected, $exception = null): void
     {
+
         $client = $this->createMock(GuzzleClient::class);
         $client->expects($this->once())->method('execute')->willReturn($json);
 
-        $config = new ProviderConfig();
-        $source = new Source();
-        $config->setSource($source->setName(Sources::MDS_VOICE));
-        $config->setUrl('fakeUrl');
+        $clientMap = $this->createMock(JsonClientMap::class);
+        $clientMap->expects($this->once())->method('getClient')->willReturn($client);
 
         $mappings = [
             Sources::MDS_VOICE => 'http://ice.planeset.ru:8000/mds_voice.mp3',
             Sources::MDS_MUSIC => 'http://ice.planeset.ru:8000/mds.mp3',
         ];
-
-        $provider = new JsonDataProvider($client, $mappings);
-        $provider->setConfig($config);
-
+        $provider = new JsonDataProvider($clientMap, $mappings);
         if ($exception) {
             $this->expectException($exception);
         }
-        $actual = $provider->getData();
+        $actual = $provider->getData(Sources::MDS_VOICE);
+
         $this->assertSame($expected, $actual);
 
     }
 
-    public function testNoConfig()
-    {
-        $client = $this->createMock(GuzzleClient::class);
-        $provider = new JsonDataProvider($client, []);
-        $this->expectException(DataProviderException::class);
-        $this->expectExceptionMessage('There is no config for current DataProvider.');
-        $provider->getData();
-    }
-
+    /**
+     * @return array
+     */
     public function dataProvider()
     {
         $expected = [

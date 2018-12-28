@@ -8,9 +8,8 @@ parameters:
           - type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
             url: 'http://ice.planeset.ru:8000/status-json.xsl'
           - type: !php/const App\Lib\DataProviderTypes::MPD_TYPE
-            url: 'http://ice.planeset.ru:6000'
-            login: 'login1'
-            password: 'pass1'
+            url: '%env(VOICE_MPD_ADDRESS)%'
+            password: '%env(VOICE_MPD_PASSWORD)%'
 
       - name: !php/const App\Lib\Sources::MDS_MUSIC
         priority: 20
@@ -18,9 +17,8 @@ parameters:
           - type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
             url: 'http://ice.planeset.ru:8000/status-json.xsl'
           - type: !php/const App\Lib\DataProviderTypes::MPD_TYPE
-            url: 'http://ice.planeset.ru:6001'
-            login: 'login2'
-            password: 'pass2'
+            url: '%env(MUSIC_MPD_ADDRESS)%'
+            password: '%env(MUSIC_MPD_PASSWORD)%'
 
   json_mapping:
     !php/const App\Lib\Sources::MDS_VOICE: 'http://ice.planeset.ru:8000/mds_voice.mp3'

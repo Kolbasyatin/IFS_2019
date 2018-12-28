@@ -12,4 +12,5 @@ interface FactoryConfigInterface
      * @return ProviderConfigInterface[]
      */
     public function getConfig(): array;
+
 }

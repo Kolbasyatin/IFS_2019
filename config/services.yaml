@@ -33,7 +33,7 @@ services:
             $config: '%sources%'
     App\Services\DataProviders\Factories\Config\YamlProviderConfig:
         arguments:
-            $config: '%sources%'
+            $yamlConfig: '%sources%'
 
     App\Services\DataProviders\Factories\Config\FactoryConfigInterface:
         factory: 'App\Services\DataProviders\Factories\Config\ProviderConfigFactory:createConfig'

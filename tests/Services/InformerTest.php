@@ -8,7 +8,6 @@ use App\Entity\Source;
 use App\Lib\Exceptions\DataClientException;
 use App\Lib\Info\InfoAnswer;
 use App\Lib\Sources;
-use App\Services\DataProviders\Clients\ClientInterface;
 use App\Services\DataProviders\Clients\ClientMaps\JsonClientMap;
 use App\Services\DataProviders\Clients\GuzzleClient;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -78,7 +77,7 @@ class InformerTest extends WebTestCase
     private function jsonInit($data, $clientMock = null)
     {
         if (null === $clientMock) {
-            $clientMock = $this->createMock(ClientInterface::class);
+            $clientMock = $this->createMock(GuzzleClient::class);
             $clientMock->expects($this->once())->method('execute')->willReturn($data);
         }
 

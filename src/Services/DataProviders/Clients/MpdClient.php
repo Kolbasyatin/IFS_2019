@@ -24,10 +24,9 @@ class MpdClient implements ClientInterface
     }
 
 
-    public function execute(): array
+    public function getStatus(): array
     {
         $command = self::STATUS;
-
         try {
             $data =  $this->connection->send($command);
             $a = 'b';
