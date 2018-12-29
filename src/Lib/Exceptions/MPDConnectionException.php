@@ -4,7 +4,7 @@
 namespace App\Lib\Exceptions;
 
 
-class MPDConnectionException extends InformerException
+class MPDConnectionException extends MpdClientException
 {
 
 }

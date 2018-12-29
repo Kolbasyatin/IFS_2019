@@ -24,11 +24,10 @@ class MPDConnection
     private $password;
 
     /**
-     * MPDConnection constructor.
      * @param string $url
      * @param string $password
      */
-    public function __construct(string $url, string $password)
+    public function setConfig(string $url, string $password): void
     {
         $this->password = $password;
         $this->url = $url;
@@ -50,13 +49,9 @@ class MPDConnection
             $command = (array)$command;
         }
         $this->sendQuestion($command);
-        $data = $this->receiveAnswer();
 
-        if ($this->isConnected()) {
-            $this->disconnect();
-        }
+        return $this->receiveAnswer();
 
-        return $data;
     }
 
 
@@ -65,7 +60,10 @@ class MPDConnection
      */
     public function isConnected(): bool
     {
-        return (bool)$this->socket;
+        return $this->socket
+            && get_resource_type($this->socket) === 'Socket'
+            && socket_last_error($this->socket) === 0
+            ;
     }
 
     /**
@@ -140,7 +138,7 @@ class MPDConnection
      */
     private function receiveAnswer(): ?array
     {
-        while ($this->socket) {
+        while ($this->isConnected()) {
             $answer = socket_read($this->socket, 1024);
             $result = explode("\n", trim($answer));
             if ($this->checkIfAnswerGotten(end($result))) {

@@ -6,4 +6,3 @@ services:
   test.mpd_client_map:
     alias: App\Services\DataProviders\Clients\ClientMaps\MpdClientMap
     public: true
-

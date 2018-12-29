@@ -16,7 +16,8 @@ class MpdClientMap extends AbstractDataClientMap
 
     protected function createClient(ProviderConfigInterface $config): ClientInterface
     {
-        $connection = new MPDConnection($config->getUrl(), $config->getPassword());
+        $connection = new MPDConnection();
+        $connection->setConfig($config->getUrl(), $config->getPassword());
 
         return new MpdClient($connection);
     }
