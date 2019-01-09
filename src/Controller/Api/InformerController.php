@@ -4,22 +4,21 @@ namespace App\Controller\Api;
 
 use App\Lib\Info\InfoQuery;
 use App\Lib\Sources;
-use App\Services\DataProviders\Factories\ProviderFactoryInterface;
 use App\Services\Informer;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class InformerController
  * @package App\Controller\Api
- * @Rest\Route("/informer")
+ * @Route("/informer")
  */
 class InformerController extends AbstractController
 {
 
     /**
-     * @Rest\Route("/sources")
+     * @Route("/sources")
      * @param Informer $informer
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -32,7 +31,7 @@ class InformerController extends AbstractController
      * @param Informer $informer
      * @param string $type
      * @return Response
-     * @Rest\Route( "/voice/{type}", defaults={"type" : "json"})
+     * @Route( "/voice/{type}", defaults={"type" : "json"})
      */
     public function voice(Informer $informer, string $type): Response
     {
@@ -46,7 +45,7 @@ class InformerController extends AbstractController
     /**
      * @param Informer $informer
      * @return Response
-     * @Rest\Route("/music/{type}", defaults={"type" : "json"})
+     * @Route("/music/{type}", defaults={"type" : "json"})
      */
     public function music(Informer $informer, string $type): Response
     {
