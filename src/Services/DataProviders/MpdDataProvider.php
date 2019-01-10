@@ -54,8 +54,12 @@ class MpdDataProvider implements DataProviderInterface
             $status = $this->mpdParser->parse($statusRaw);
             $currentRaw = $mpdClient->currentsong();
             $currentSong = $this->mpdParser->parse($currentRaw);
-            $nextRaw = $mpdClient->playlistid($status['nextsongid']);
-            $nextSong = $this->mpdParser->parse($nextRaw);
+            $nextSongId = $status['nextsongid'] ?? null;
+            $nextSong = null;
+            if (null !== $nextSongId ){
+                $nextRaw = $mpdClient->playlistid();
+                $nextSong = $this->mpdParser->parse($nextRaw);
+            }
 
             $result = [
                 'status' => $status,
@@ -64,7 +68,7 @@ class MpdDataProvider implements DataProviderInterface
             ];
             /** Не подсвечивает throws когда __call */
         } catch (MpdClientException $exception) {
-            throw new DataProviderException('Mpd client error');
+            throw new DataProviderException('Mpd client error. '.$exception->getMessage());
         }
 
         return $result;

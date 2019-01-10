@@ -15,7 +15,7 @@ use App\Services\Informer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class InformerTest extends WebTestCase
+class InformerJsonTest extends WebTestCase
 {
 
     public function testGetInfoSuccessful(): void
