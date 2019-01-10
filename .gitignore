@@ -15,3 +15,8 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+
+/docker/mpd/music/*
+/docker/mpd/playlists/*
+!/docker/mpd/*/.gitkeep

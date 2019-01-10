@@ -1,5 +1,8 @@
 language: php
-sudo: false
+sudo: required
+services:
+  - docker
+
 matrix:
   include:
     - php: 7.2
@@ -10,7 +13,10 @@ matrix:
 
 before_install:
   - composer self-update
-
+  - cd docker/mpd
+  - docker pull vitiman/alpine-mpd
+  - docker-compose up -d
+  - cd ../..
 install:
   - composer install --dev
 
