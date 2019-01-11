@@ -52,6 +52,10 @@ class MpdDataProvider implements DataProviderInterface
         try {
             $statusRaw = $mpdClient->status();
             $status = $this->mpdParser->parse($statusRaw);
+            $state = $status['state'] ?? null;
+            if (null === $state || $state !== 'play') {
+                throw new DataProviderException('No playing');
+            }
             $currentRaw = $mpdClient->currentsong();
             $currentSong = $this->mpdParser->parse($currentRaw);
             $nextSongId = $status['nextsongid'] ?? null;
