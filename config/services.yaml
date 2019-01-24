@@ -1,5 +1,3 @@
-imports:
-    - { resource: 'sources.yaml' }
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -30,10 +28,10 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Services\DataProviders\Factories\Config\ProviderConfigFactory:
         arguments:
-            $config: '%sources%'
+            $config: '%app.sources%'
     App\Services\DataProviders\Factories\Config\YamlProviderConfig:
         arguments:
-            $yamlConfig: '%sources%'
+            $yamlConfig: '%app.sources%'
 
     App\Services\DataProviders\Factories\Config\FactoryConfigInterface:
         factory: 'App\Services\DataProviders\Factories\Config\ProviderConfigFactory:createConfig'
@@ -42,7 +40,7 @@ services:
     App\Services\DataProviders\JsonDataProvider:
         public: true
         arguments:
-            $mappings: '%json_mapping%'
+            $mappings: '%app.json_mapping%'
 
     App\Services\DataProviders\MpdDataProvider:
         public: true

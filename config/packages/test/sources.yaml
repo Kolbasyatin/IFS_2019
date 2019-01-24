@@ -1,0 +1,16 @@
+parameters:
+  app.sources:
+    type: !php/const App\Services\DataProviders\Factories\Config\ProviderConfigFactory::YAML_TYPE
+    sources:
+      - name: 'test_voice'
+        priority: 10
+        informers:
+          - type: !php/const App\Lib\DataProviderTypes::JSON_TYPE
+            url: 'http://localhost:8000/status-json.xsl'
+          - type: !php/const App\Lib\DataProviderTypes::MPD_TYPE
+            url: '%env(VOICE_MPD_ADDRESS)%'
+            password: '%env(VOICE_MPD_PASSWORD)%'
+
+  app.json_mapping:
+    !php/const App\Lib\Sources::MDS_VOICE: 'http://localhost:8000/mds_voice.mp3'
+

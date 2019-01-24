@@ -12,8 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DataProviderFactory
 {
-    private const DEFAULT_PROVIDER_TYPE = DataProviderTypes::JSON_TYPE;
-
     /** @var ContainerInterface */
     private $container;
 
@@ -31,11 +29,9 @@ class DataProviderFactory
      * @return DataProviderInterface|object
      * @throws FactoryDataProviderException
      */
-    public function create(?string $type = null): DataProviderInterface
+    public function create(string $type): DataProviderInterface
     {
-        if (null === $type) {
-            $type = static::DEFAULT_PROVIDER_TYPE;
-        }
+
         $serviceName = sprintf('App\Services\DataProviders\\%sDataProvider', ucfirst($type));
         if ($this->container->has($serviceName)) {
             return $this->container->get($serviceName);

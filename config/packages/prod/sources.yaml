@@ -1,5 +1,5 @@
 parameters:
-  sources:
+  app.sources:
     type: !php/const App\Services\DataProviders\Factories\Config\ProviderConfigFactory::YAML_TYPE
     sources:
       - name: !php/const App\Lib\Sources::MDS_VOICE
@@ -20,6 +20,7 @@ parameters:
             url: '%env(MUSIC_MPD_ADDRESS)%'
             password: '%env(MUSIC_MPD_PASSWORD)%'
 
-  json_mapping:
+  app.json_mapping:
     !php/const App\Lib\Sources::MDS_VOICE: 'http://ice.planeset.ru:8000/mds_voice.mp3'
     !php/const App\Lib\Sources::MDS_MUSIC: 'http://ice.planeset.ru:8000/mds.mp3'
+

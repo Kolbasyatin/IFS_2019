@@ -10,13 +10,17 @@ class DataProviderTypes
 
     public const JSON_TYPE = 'json';
 
+    public const DEFAULT_PROVIDER_TYPE = self::JSON_TYPE;
+
+
     /**
      * @return array
      */
     public static function getTypes(): array
     {
         return [
-            self::MPD_TYPE,
+            self::JSON_TYPE,
+            self::MPD_TYPE
         ];
     }
 }

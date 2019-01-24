@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\InformerException;
 use App\Lib\Info\InfoAnswer;
 use App\Services\DataProviders\Factories\Config\FactoryConfigInterface;
@@ -46,11 +47,18 @@ class Informer
     public function getInfo(string $sourceName, string $providerType = null): InfoAnswer
     {
         $answer = new  InfoAnswer();
+        if (null === $providerType) {
+            $providerTypes = DataProviderTypes::getTypes();
+        }  else {
+            $providerTypes = (array)DataProviderTypes::DEFAULT_PROVIDER_TYPE;
+        }
         try {
-            $provider = $this->providerFactory->create($providerType);
-            $data = $provider->getData($sourceName);
-            $answer->setSource($sourceName);
-            $this->fillerManager->fill($data, $provider->getType(), $answer);
+            foreach ($providerTypes as $type) {
+                $provider = $this->providerFactory->create($type);
+                $data = $provider->getData($sourceName);
+                $answer->setSource($sourceName);
+                $this->fillerManager->fill($data, $provider->getType(), $answer);
+            }
 
         } catch (InformerException $e) {
             $answer->setSource($sourceName);
