@@ -61,7 +61,7 @@ class MpdDataProvider implements DataProviderInterface
             $nextSongId = $status['nextsongid'] ?? null;
             $nextSong = null;
             if (null !== $nextSongId ){
-                $nextRaw = $mpdClient->playlistid();
+                $nextRaw = $mpdClient->playlistid($nextSongId);
                 $nextSong = $this->mpdParser->parse($nextRaw);
             }
 

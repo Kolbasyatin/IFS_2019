@@ -13,7 +13,7 @@ class MpdConnectionTest extends WebTestCase
     public function testConnection()
     {
         static::bootKernel();
-        $config = static::$container->getParameter('sources');
+        $config = static::$container->getParameter('app.sources');
         if ($config['type'] === 'yaml') {
             foreach ($config['sources'] as $source) {
                 foreach ($source['informers'] as $informer) {

@@ -18,7 +18,7 @@ class Informer
     /** @var FillerManager */
     private $fillerManager;
 
-    /** @var DataProviderFactory  */
+    /** @var DataProviderFactory */
     private $providerFactory;
     /**
      * @var FactoryConfigInterface
@@ -49,8 +49,8 @@ class Informer
         $answer = new  InfoAnswer();
         if (null === $providerType) {
             $providerTypes = DataProviderTypes::getTypes();
-        }  else {
-            $providerTypes = (array)DataProviderTypes::DEFAULT_PROVIDER_TYPE;
+        } else {
+            $providerTypes = (array)$providerType;
         }
         try {
             foreach ($providerTypes as $type) {
@@ -74,7 +74,7 @@ class Informer
         /** @var ProviderConfigInterface $config */
         foreach ($this->factoryConfig->getConfig() as $config) {
             $source = $config->getSource();
-            if (! ($result[$source->getName()] ?? null)) {
+            if (!($result[$source->getName()] ?? null)) {
                 $result[$source->getName()][] = $source;
             }
 

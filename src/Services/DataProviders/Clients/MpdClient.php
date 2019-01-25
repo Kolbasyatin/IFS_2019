@@ -9,7 +9,7 @@ use App\Lib\Exceptions\MpdClientException;
 /**
  * Class MpdClient
  * @package App\Services\DataProviders\Clients
- * @method array add
+ * @method array add($URI)
  * @method array addid
  * @method array addtagid
  * @method array channels
@@ -236,6 +236,7 @@ class MpdClient implements ClientInterface
         $command = $name . ' '. implode(' ', $arguments);
         $result =  $this->connection->send($command);
         $this->checkResult($result);
+        array_pop($result);
 
         return $result;
     }
@@ -252,6 +253,7 @@ class MpdClient implements ClientInterface
         if ($answer !== 'OK') {
             throw new MpdClientException($answer);
         }
+        
     }
 
 }

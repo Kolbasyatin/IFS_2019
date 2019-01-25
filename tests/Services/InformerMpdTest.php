@@ -4,7 +4,8 @@
 namespace App\Tests\Services;
 
 
-use App\Lib\Sources;
+use App\Lib\DataProviderTypes;
+use App\Lib\Info\InfoAnswer;
 use App\Services\DataProviders\Clients\ClientMaps\MpdClientMap;
 use App\Services\DataProviders\Clients\MpdClient;
 use App\Services\Informer;
@@ -15,13 +16,36 @@ class InformerMpdTest extends WebTestCase
     public function testGetInfo()
     {
         self::bootKernel();
-        /** @var MpdClient $mpdClient */
         $mpdClient = self::$container->get(MpdClientMap::class)->getClient('test_voice');
-//        $aaa = $mpdClient->lsinfo();
-//        $mpdClient->listplaylistinfo();
-//        $informer = self::$container->get(Informer::class);
-//        $result = $informer->getInfo(Sources::MDS_VOICE);
+        /** @var MpdClient $mpdClient */
+        $mpdClient->clear();
+        $listAll = $mpdClient->listall();
+        $files = array_map(
+            function ($file) {
+                return str_replace('file: ', '', $file);
+            },
+            $listAll
+        );
 
+        /** @var MpdClient $mpdClient */
+        foreach ($files as $file) {
+            $mpdClient->add("\"$file\"");
+        }
+        $mpdClient->play();
+        $informer = self::$container->get(Informer::class);
+        /** @var InfoAnswer $actual */
+        $actual = $informer->getInfo('test_voice', DataProviderTypes::MPD_TYPE);
+        $mpdClient->stop();
+        $mpdClient->clear();
+
+        $this->assertEquals('test_voice', $actual->getSource());
+        $this->assertEquals('online', $actual->getStatus());
+
+        $this->assertNotEmpty($actual->getSongName());
+        $this->assertNotEmpty($actual->getNextSongName());
+        $this->assertNotEmpty($actual->getStartTime());
+        $this->assertNotEmpty($actual->getEndTime());
+        $this->assertTrue($actual->getStartTime() < $actual->getEndTime());
     }
 
 }

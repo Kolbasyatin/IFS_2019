@@ -17,6 +17,6 @@
 ###< symfony/web-server-bundle ###
 
 
-/docker/mpd/music/*
+#/docker/mpd/music/*
 /docker/mpd/playlists/*
 !/docker/mpd/*/.gitkeep

@@ -4,11 +4,21 @@
 namespace App\Lib\Info;
 
 
+/**
+ * Class InfoAnswer
+ * @package App\Lib\Info
+ */
 class InfoAnswer
 {
 
+    /**
+     *
+     */
     public const ONLINE_STATUS = 'online';
 
+    /**
+     *
+     */
     public const ERROR_STATUS = 'error';
 
     /** @var string */
@@ -27,7 +37,7 @@ class InfoAnswer
     private $previousSong;
 
     /** @var string|null */
-    private $nextSong;
+    private $nextSongName;
 
     /** @var \DateTime|null */
     private $startTime;
@@ -35,14 +45,31 @@ class InfoAnswer
     /** @var \DateTime|null */
     private $endTime;
 
-    /** @var \DateTime|null */
+    /** @var \DateTime */
     private $currentTime;
+
+    /** @var \DateInterval|null */
+    private $elapsedType;
 
     /** @var \DateInterval|null */
     private $lengthTime;
 
     /** @var string|null */
     private $errorReason;
+
+    /**
+     * InfoAnswer constructor.
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $this->currentTime = new \DateTime('now');
+    }
+
+    public function getCurrentTime()
+    {
+        return $this->currentTime;
+    }
 
     /**
      * @return string
@@ -142,18 +169,18 @@ class InfoAnswer
     /**
      * @return string|null
      */
-    public function getNextSong(): ?string
+    public function getNextSongName(): ?string
     {
-        return $this->nextSong;
+        return $this->nextSongName;
     }
 
     /**
-     * @param string|null $nextSong
+     * @param string|null $nextSongName
      * @return InfoAnswer
      */
-    public function setNextSong(?string $nextSong): InfoAnswer
+    public function setNextSongName(?string $nextSongName): InfoAnswer
     {
-        $this->nextSong = $nextSong;
+        $this->nextSongName = $nextSongName;
 
         return $this;
     }
@@ -163,54 +190,34 @@ class InfoAnswer
      */
     public function getStartTime(): ?\DateTime
     {
-        return $this->startTime;
+        return (clone $this->currentTime)->modify(sprintf('- %s seconds', $this->elapsedType->format('%s')));
     }
 
-    /**
-     * @param \DateTime|null $startTime
-     * @return InfoAnswer
-     */
-    public function setStartTime(?\DateTime $startTime): InfoAnswer
-    {
-        $this->startTime = $startTime;
-
-        return $this;
-    }
 
     /**
      * @return \DateTime|null
      */
     public function getEndTime(): ?\DateTime
     {
-        return $this->endTime;
+        return (clone $this->currentTime)->modify(sprintf('+ %s seconds', $this->lengthTime->format('%s')));
+    }
+
+
+    /**
+     * @return \DateInterval|null
+     */
+    public function getElapsedType(): ?\DateInterval
+    {
+        return $this->elapsedType;
     }
 
     /**
-     * @param \DateTime|null $endTime
+     * @param \DateInterval|null $elapsedType
      * @return InfoAnswer
      */
-    public function setEndTime(?\DateTime $endTime): InfoAnswer
+    public function setElapsedType(?\DateInterval $elapsedType): InfoAnswer
     {
-        $this->endTime = $endTime;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getCurrentTime(): ?\DateTime
-    {
-        return $this->currentTime;
-    }
-
-    /**
-     * @param \DateTime|null $currentTime
-     * @return InfoAnswer
-     */
-    public function setCurrentTime(?\DateTime $currentTime): InfoAnswer
-    {
-        $this->currentTime = $currentTime;
+        $this->elapsedType = $elapsedType;
 
         return $this;
     }
