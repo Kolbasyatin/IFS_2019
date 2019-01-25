@@ -32,6 +32,7 @@ class InformerMpdTest extends WebTestCase
             $mpdClient->add("\"$file\"");
         }
         $mpdClient->play();
+        sleep(1);
         $informer = self::$container->get(Informer::class);
         /** @var InfoAnswer $actual */
         $actual = $informer->getInfo('test_voice', DataProviderTypes::MPD_TYPE);
