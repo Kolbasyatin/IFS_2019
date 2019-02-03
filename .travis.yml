@@ -18,7 +18,7 @@ before_install:
   - docker-compose up -d
   - cd ../..
 install:
-  - composer install --dev
+  - composer install
 
 script:
   - ./bin/phpunit

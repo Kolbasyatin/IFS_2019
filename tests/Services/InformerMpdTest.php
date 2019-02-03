@@ -27,12 +27,15 @@ class InformerMpdTest extends WebTestCase
             $listAll
         );
 
+        var_dump($files);
+
         /** @var MpdClient $mpdClient */
         foreach ($files as $file) {
             $mpdClient->add("\"$file\"");
         }
-        $mpdClient->play();
-        sleep(1);
+        $result = $mpdClient->play();
+        $this->assertEmpty($result);
+        sleep(2);
         $informer = self::$container->get(Informer::class);
         /** @var SourceInfo $actual */
         $actual = $informer->getInfo('test_voice', DataProviderTypes::MPD_TYPE);
