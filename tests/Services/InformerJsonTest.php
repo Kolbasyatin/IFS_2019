@@ -7,7 +7,7 @@ namespace App\Tests\Services;
 use App\Entity\Source;
 use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\DataClientException;
-use App\Lib\Info\InfoAnswer;
+use App\Lib\Info\SourceInfo;
 use App\Lib\Sources;
 use App\Services\DataProviders\Clients\ClientMaps\JsonClientMap;
 use App\Services\DataProviders\Clients\GuzzleClient;
@@ -24,7 +24,7 @@ class InformerJsonTest extends WebTestCase
 
         $this->jsonInit($this->getJsonData());
 
-        /** @var InfoAnswer $actual */
+        /** @var SourceInfo $actual */
         $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE, DataProviderTypes::JSON_TYPE);
         $this->assertEquals('online', $actual->getStatus());
 
@@ -41,7 +41,7 @@ class InformerJsonTest extends WebTestCase
     public function testGetInfoErrorSource(): void
     {
         $this->jsonInit('');
-        /** @var InfoAnswer $actual */
+        /** @var SourceInfo $actual */
         $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
         $this->assertEquals('error', $actual->getStatus());
         $this->assertSame('Bad json from client!', $actual->getErrorReason());
@@ -52,21 +52,10 @@ class InformerJsonTest extends WebTestCase
         $mock = $this->createMock(GuzzleClient::class);
         $mock->expects($this->once())->method('execute')->willThrowException(new DataClientException('Error for test.'));
         $this->jsonInit('', $mock);
-        /** @var InfoAnswer $actual */
+        /** @var SourceInfo $actual */
         $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
         $this->assertEquals('error', $actual->getStatus());
         $this->assertEquals('Error for test.', $actual->getErrorReason());
-    }
-
-    public function testGetSources()
-    {
-        static::bootKernel();
-        $actual = static::$container->get(Informer::class)->getSources();
-        foreach ($actual as $source) {
-            /** @var Source $source */
-            $this->assertInstanceOf(Source::class, $source);
-            $this->assertContains($source->getName(), ['test_voice']);
-        }
     }
 
     private function getJsonData(): string

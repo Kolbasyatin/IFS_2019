@@ -5,11 +5,11 @@ namespace App\Services\Fillers;
 
 
 use App\Lib\DataProviderTypes;
-use App\Lib\Info\InfoAnswer;
+use App\Lib\Info\SourceInfo;
 
 class MpdFiller implements FillerInterface
 {
-    public function fill(array $data, InfoAnswer $answer): void
+    public function fill(array $data, SourceInfo $answer): void
     {
         $status = $data['status'];
         $currentSong = $data['currentSong'];

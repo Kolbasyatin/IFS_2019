@@ -2,7 +2,7 @@ parameters:
   app.sources:
     type: !php/const App\Services\DataProviders\Factories\Config\ProviderConfigFactory::YAML_TYPE
     sources:
-      - name: 'test_voice'
+      - name: !php/const App\Tests\Services\InformerTest::TEST_SOURCE_NAME
         priority: 10
         informers:
           - type: !php/const App\Lib\DataProviderTypes::JSON_TYPE

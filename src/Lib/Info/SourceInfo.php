@@ -8,7 +8,7 @@ namespace App\Lib\Info;
  * Class InfoAnswer
  * @package App\Lib\Info
  */
-class InfoAnswer
+class SourceInfo
 {
 
     /**
@@ -38,12 +38,6 @@ class InfoAnswer
 
     /** @var string|null */
     private $nextSongName;
-
-    /** @var \DateTime|null */
-    private $startTime;
-
-    /** @var \DateTime|null */
-    private $endTime;
 
     /** @var \DateTime */
     private $currentTime;
@@ -81,9 +75,9 @@ class InfoAnswer
 
     /**
      * @param string $source
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setSource(string $source): InfoAnswer
+    public function setSource(string $source): SourceInfo
     {
         $this->source = $source;
 
@@ -100,9 +94,9 @@ class InfoAnswer
 
     /**
      * @param string $status
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setStatus(string $status): InfoAnswer
+    public function setStatus(string $status): SourceInfo
     {
         $this->status = $status;
 
@@ -119,9 +113,9 @@ class InfoAnswer
 
     /**
      * @param int|null $listeners
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setListeners(?int $listeners): InfoAnswer
+    public function setListeners(?int $listeners): SourceInfo
     {
         $this->listeners = $listeners;
 
@@ -138,9 +132,9 @@ class InfoAnswer
 
     /**
      * @param string|null $songName
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setSongName(?string $songName): InfoAnswer
+    public function setSongName(?string $songName): SourceInfo
     {
         $this->songName = $songName;
 
@@ -157,9 +151,9 @@ class InfoAnswer
 
     /**
      * @param string|null $previousSong
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setPreviousSong(?string $previousSong): InfoAnswer
+    public function setPreviousSong(?string $previousSong): SourceInfo
     {
         $this->previousSong = $previousSong;
 
@@ -176,9 +170,9 @@ class InfoAnswer
 
     /**
      * @param string|null $nextSongName
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setNextSongName(?string $nextSongName): InfoAnswer
+    public function setNextSongName(?string $nextSongName): SourceInfo
     {
         $this->nextSongName = $nextSongName;
 
@@ -213,9 +207,9 @@ class InfoAnswer
 
     /**
      * @param \DateInterval|null $elapsedType
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setElapsedType(?\DateInterval $elapsedType): InfoAnswer
+    public function setElapsedType(?\DateInterval $elapsedType): SourceInfo
     {
         $this->elapsedType = $elapsedType;
 
@@ -232,9 +226,9 @@ class InfoAnswer
 
     /**
      * @param \DateInterval|null $lengthTime
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setLengthTime(?\DateInterval $lengthTime): InfoAnswer
+    public function setLengthTime(?\DateInterval $lengthTime): SourceInfo
     {
         $this->lengthTime = $lengthTime;
 
@@ -251,9 +245,9 @@ class InfoAnswer
 
     /**
      * @param string|null $errorReason
-     * @return InfoAnswer
+     * @return SourceInfo
      */
-    public function setErrorReason(?string $errorReason): InfoAnswer
+    public function setErrorReason(?string $errorReason): SourceInfo
     {
         $this->errorReason = $errorReason;
 

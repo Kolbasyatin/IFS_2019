@@ -318,7 +318,7 @@ class IceCastJsonModel
         return $this;
     }
 
-    public function fillAnswer(InfoAnswer $answer): void
+    public function fillAnswer(SourceInfo $answer): void
     {
         $answer
             ->setListeners($this->getListeners())

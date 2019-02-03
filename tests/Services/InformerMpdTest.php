@@ -5,7 +5,7 @@ namespace App\Tests\Services;
 
 
 use App\Lib\DataProviderTypes;
-use App\Lib\Info\InfoAnswer;
+use App\Lib\Info\SourceInfo;
 use App\Services\DataProviders\Clients\ClientMaps\MpdClientMap;
 use App\Services\DataProviders\Clients\MpdClient;
 use App\Services\Informer;
@@ -34,7 +34,7 @@ class InformerMpdTest extends WebTestCase
         $mpdClient->play();
         sleep(1);
         $informer = self::$container->get(Informer::class);
-        /** @var InfoAnswer $actual */
+        /** @var SourceInfo $actual */
         $actual = $informer->getInfo('test_voice', DataProviderTypes::MPD_TYPE);
         $mpdClient->stop();
         $mpdClient->clear();

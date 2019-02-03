@@ -6,7 +6,7 @@ namespace App\Services\Fillers;
 
 use App\Lib\DataProviderTypes;
 use App\Lib\Info\IceCastJsonModel;
-use App\Lib\Info\InfoAnswer;
+use App\Lib\Info\SourceInfo;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -26,7 +26,7 @@ class IceCastJsonFiller implements FillerInterface
     }
 
 
-    public function fill(array $data, InfoAnswer $answer): void
+    public function fill(array $data, SourceInfo $answer): void
     {
 
         /** @var IceCastJsonModel $model */

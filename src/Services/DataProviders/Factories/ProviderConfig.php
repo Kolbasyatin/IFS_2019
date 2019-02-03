@@ -108,18 +108,4 @@ class ProviderConfig implements ProviderConfigInterface
         return $this->password;
     }
 
-    public static function createInstance(string $source, string $type, string $url, string $login = '', string $password = ''): self
-    {
-        $instance = new static();
-        $instance
-            ->setSource($source)
-            ->setType($type)
-            ->setUrl($url)
-            ->setLogin($login)
-            ->setPassword($password);
-
-        return $instance;
-    }
-
-
 }

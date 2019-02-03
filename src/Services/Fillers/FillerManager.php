@@ -5,7 +5,7 @@ namespace App\Services\Fillers;
 
 
 use App\Lib\Exceptions\FillerException;
-use App\Lib\Info\InfoAnswer;
+use App\Lib\Info\SourceInfo;
 
 class FillerManager
 {
@@ -30,16 +30,16 @@ class FillerManager
     /**
      * @param $data
      * @param string $type
-     * @param InfoAnswer $answer
+     * @param SourceInfo $answer
      * @throws FillerException
      */
-    public function fill($data, string $type, InfoAnswer $answer): void
+    public function fill($data, string $type, SourceInfo $answer): void
     {
         $wasFilled = false;
         foreach ($this->fillers as $filler) {
             if ($filler->isSupport($type)) {
                 $filler->fill($data, $answer);
-                $answer->setStatus(InfoAnswer::ONLINE_STATUS);
+                $answer->setStatus(SourceInfo::ONLINE_STATUS);
                 $wasFilled = true;
                 break;
             }
