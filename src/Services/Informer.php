@@ -12,6 +12,10 @@ use App\Services\DataProviders\Factories\DataProviderFactory;
 use App\Services\DataProviders\Factories\ProviderConfigInterface;
 use App\Services\Fillers\FillerManager;
 
+/**
+ * Class Informer
+ * @package App\Services
+ */
 class Informer
 {
 
@@ -44,6 +48,12 @@ class Informer
     }
 
 
+    /**
+     * @param string $sourceName
+     * @param string|null $providerType with provider type handle source (or both when null)
+     * @return SourceInfo
+     * @throws \Exception
+     */
     public function getInfo(string $sourceName, string $providerType = null): SourceInfo
     {
         $answer = new  SourceInfo();
@@ -68,6 +78,9 @@ class Informer
         return $answer;
     }
 
+    /**
+     * @return array
+     */
     public function getSources(): array
     {
         $result = [];

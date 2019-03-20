@@ -27,6 +27,7 @@ class YamlProviderConfig implements FactoryConfigInterface
      * @param array $yamlConfig
      * @param SerializerInterface $serializer
      * @throws FactoryDataProviderException
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     public function __construct(array $yamlConfig, SerializerInterface $serializer)
     {
@@ -53,6 +54,7 @@ class YamlProviderConfig implements FactoryConfigInterface
      * @param array $yamlConfig
      * @return ProviderConfig[]
      * @throws FactoryDataProviderException
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     protected function createProviderConfigs(array $yamlConfig): array
     {

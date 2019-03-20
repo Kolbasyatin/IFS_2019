@@ -8,10 +8,18 @@ use App\Entity\Source;
 use App\Services\Informer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class InformerTest
+ * @package App\Tests\Services
+ */
 class InformerTest extends WebTestCase
 {
 
+    /**
+     * @var string
+     */
     public const TEST_SOURCE_NAME = 'test_voice';
+
 
     public function testGetSources()
     {

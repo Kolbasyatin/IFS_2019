@@ -27,8 +27,6 @@ class InformerMpdTest extends WebTestCase
             $listAll
         );
 
-        var_dump($files);
-
         /** @var MpdClient $mpdClient */
         foreach ($files as $file) {
             $mpdClient->add("\"$file\"");

@@ -8,9 +8,16 @@ use App\Lib\Exceptions\DataClientException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+/**
+ * Class GuzzleClient
+ * @package App\Services\DataProviders\Clients
+ */
 class GuzzleClient implements ClientInterface
 {
 
+    /**
+     * @var Client
+     */
     private $client;
 
     /** @var  string */
@@ -26,6 +33,10 @@ class GuzzleClient implements ClientInterface
         $this->address = $address;
     }
 
+    /**
+     * @return string
+     * @throws DataClientException
+     */
     public function execute(): string
     {
         try {
