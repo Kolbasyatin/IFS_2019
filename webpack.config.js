@@ -1,4 +1,4 @@
-gvar Encore = require('@symfony/webpack-encore');
+var Encore = require('@symfony/webpack-encore');
 
 Encore
     // directory where compiled assets will be stored
@@ -53,6 +53,9 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+    .enableLessLoader()
+    .enableVueLoader()
+
 ;
 
 module.exports = Encore.getWebpackConfig();

@@ -1,0 +1,835 @@
+<template>
+    <div>
+    <div class="shadow"></div>
+    <div class="container">
+        <div class="center">
+            <div class="blur">
+                <div class="header">
+                    <div class="header_menu_bl">
+                        <div class="header_menu">
+                            <ul class="auth-ul">
+                                <li class="login">
+                                    <a class="vkontakte image" href="http://mds.planeset.ru/login/vkontakte" title="Авторизация через ВК">
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="logo">
+                        <a href="/" title=""><img src="/assets/template/logo.png" alt=""></a>
+                    </div>
+                    <div class="break"></div>
+
+                    <div class="listeners">
+                        <div class="listenersdiv">
+                            <p><span id="all_listeners">Экипаж в корабле:</span> <span id="listeners" style="">∞</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment_block">
+                    <div class="comment_block_title">
+                        Комментарии к трансляции
+                    </div>
+                    <div id="comments" class="comm_box mCustomScrollbar _mCS_1 mCS_no_scrollbar"><div id="mCSB_1" class="mCustomScrollBox mCS-dark-thin mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+
+                        <div id="room_container"></div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark-thin mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+                    <div id="comment_add">
+                        Комментировать
+                    </div>
+                </div>
+
+                <div class="player">
+                    <div class="player_title">
+                        Выберите спутник:
+                    </div>
+
+                    <div class="playerlistcontent">
+
+                        <ul id="playerlist">
+
+                            <li class="first">        <a href="#" data-sourceid="mds_voice" data-src="http://ice.planeset.ru:8000/mds_voice.mp3" title="Модель для сборки - голос">МДС Голос</a>
+                            </li>
+
+
+                            <li class="last">        <a href="#" data-sourceid="mds_music" data-src="http://ice.planeset.ru:8000/mds.mp3" title="Модель для сборки - музыка">МДС Музыка</a>
+                            </li>
+
+
+                        </ul>
+
+
+                    </div>
+
+                    <div class="sound">
+                        <div class="volume">
+                            <p class="ui-state-default ui-corner-all ui-helper-clearfix  uiicon">
+                                <span class="ui-icon ui-icon-play ui-state-disabled" id="playsource"></span>
+                                <span class="ui-icon ui-icon-pause ui-state-disabled" id="pausesource"></span>
+                                Время в полете: <span id="timeleft">∞</span>
+                            </p>
+                            <p class="ui-state-default ui-corner-all ui-helper-clearfix uiicon">
+                                <span class="ui-icon ui-icon-volume-on" id="mute"></span>
+                                Уровень громкости <span id="volume_indicator">60%</span>
+                            </p>
+                            <div id="volume_slider" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header ui-slider-range-min" style="width: 60%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
+                        </div>
+                    </div>
+                    <div class="break"></div>
+
+                    <div class="player_name">
+                        <p id="sound_name" style="">Друзья, ресурс возможо вскоре будет закрыт. Пять+ лет поддержки - очень дорого уже. Умер очередной HDD. Извините.</p>
+                    </div>
+                    <div class="audiodiv">
+                    </div>
+                </div>
+
+                <div id="widgets">
+                    <div id="vk_groups" style="width: 280px; height: 400px; background: none;"><iframe name="fXD6935f" frameborder="0" src="https://vk.com/widget_community.php?app=0&amp;width=280px&amp;_ver=1&amp;gid=144631646&amp;mode=4&amp;color1=4B6D95&amp;color2=EFE0E0&amp;color3=A8935E&amp;class_name=&amp;height=400&amp;url=http%3A%2F%2Fmds.planeset.ru%2F&amp;referrer=&amp;title=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%BE%D0%BB%D1%91%D1%82%20%D0%BA%D0%BE%D1%80%D0%B0%D0%B1%D0%BB%D1%8F%20%D0%9C%D0%94%D0%A1&amp;169a0d0713f" width="280" height="400" scrolling="no" id="vkwidget1" style="overflow: hidden; height: 400px;"></iframe></div></div>
+
+            </div>
+
+            <div class="panel">
+                <div class="panel_center">
+                    Место: На краю вселенной, <span id="curtime">3019 Year 18:14</span>
+                </div>
+                <div class="panel_left">
+                    Ретранслятор корабля MDS 3019г.
+                </div>
+                <div class="panel_right">
+                    <span class="link" data-href="http://vk.com/id19627527">Дизайн: Данил Лямин </span>
+                    <br><span class="link" data-href="http://vk.com/zavalyuk">Программинг: Zalex</span>
+                </div>
+            </div>
+
+            <div id="dialog-form" title="Оставь след.">
+                <div id="form">
+
+                </div>
+            </div>
+            <div id="user-info" data-is-authenticated="false" data-is-newsmaker="false"></div>
+            <div id="room-info" data-room-id="" data-room-url=""></div>
+
+
+        </div>
+    </div>
+
+    <div id="jp" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata"></audio></div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "App"
+    }
+</script>
+
+<style scoped lang="less">
+    //@import (css) '~jquery-ui-themes/jquery-ui.css';
+    //@import (css) '~jquery-ui-themes/themes/dot-luv/theme.css';
+    //@import (css) './tooltip.css';
+    //Custom jquery ui style. Move to npm?
+
+    @color_1: #fff;
+    @color_2: #333333;
+    @color_3: #7c7c7c;
+    @color_4: #812022;
+    @color_5: red;
+    @font_family_1: arial;
+
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-collapse: collapse;
+    }
+
+    html {
+        margin: 0;
+        height: 100%;
+        &:hover {
+            body {
+                opacity: 1;
+            }
+        }
+    }
+
+    body {
+        margin: 0;
+        height: 100%;
+        //background: url('../images/backgrounds/wallhaven-202898.jpg') repeat-y top;
+        background-size: cover;
+        width: 100%;
+        font-size: 12px;
+        color: @color_1;
+        font-family: @font_family_1;
+        position: relative;
+        -o-transition: all 0.3s linear;
+        -moz-transition: all 0.3s linear;
+        -webkit-transition: all 0.3s linear;
+        transition: all 0.3s linear;
+        a {
+            outline: 0;
+        }
+    }
+
+    .break {
+        clear: both;
+    }
+
+    .shadow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        -moz-box-shadow: inset 0 0 250px #000000;
+        -webkit-box-shadow: inset 0 0 250px #000000;
+        box-shadow: inset 0 0 250px #000000;
+    }
+
+    .container {
+        position: relative;
+        top: 130px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .center {
+        min-width: 990px;
+        max-width: 990px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .blur {
+        //background: url('../images/template/blur.jpg') no-repeat 0 0;
+        min-width: 988px;
+        height: 543px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 35px 0 0 0;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -khtml-border-radius: 3px;
+        -moz-box-shadow: 0 0 10px rgba(111, 189, 255, 0.4);
+        -webkit-box-shadow: 0 0 10px rgba(111, 189, 255, 0.4);
+        box-shadow: 0 0 10px rgba(111, 189, 255, 0.4);
+        float: left;
+    }
+
+    .header {
+        position: relative;
+        width: 100%;
+        margin: 0 0 5px 0;
+        float: left;
+    }
+
+    .header_menu_bl {
+        position: absolute;
+        height: auto;
+        width: 100%;
+    }
+
+    .li-hovered {
+        cursor: pointer;
+        background: #6da3e9 !important;
+    }
+
+    .auth_li_size {
+        width: 35px;
+        height: 30px;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .vkontakte {
+        .auth_li_size;
+        &.image {
+            background: url('data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDU0OC4zNTggNTQ4LjM1OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTQ4LjM1OCA1NDguMzU4OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTU0NS40NTEsNDAwLjI5OGMtMC42NjQtMS40MzEtMS4yODMtMi42MTgtMS44NTgtMy41NjljLTkuNTE0LTE3LjEzNS0yNy42OTUtMzguMTY3LTU0LjUzMi02My4xMDJsLTAuNTY3LTAuNTcxICAgbC0wLjI4NC0wLjI4bC0wLjI4Ny0wLjI4N2gtMC4yODhjLTEyLjE4LTExLjYxMS0xOS44OTMtMTkuNDE4LTIzLjEyMy0yMy40MTVjLTUuOTEtNy42MTQtNy4yMzQtMTUuMzIxLTQuMDA0LTIzLjEzICAgYzIuMjgyLTUuOSwxMC44NTQtMTguMzYsMjUuNjk2LTM3LjM5N2M3LjgwNy0xMC4wODksMTMuOTktMTguMTc1LDE4LjU1Ni0yNC4yNjdjMzIuOTMxLTQzLjc4LDQ3LjIwOC03MS43NTYsNDIuODI4LTgzLjkzOSAgIGwtMS43MDEtMi44NDdjLTEuMTQzLTEuNzE0LTQuMDkzLTMuMjgyLTguODQ2LTQuNzEyYy00Ljc2NC0xLjQyNy0xMC44NTMtMS42NjMtMTguMjc4LTAuNzEybC04Mi4yMjQsMC41NjggICBjLTEuMzMyLTAuNDcyLTMuMjM0LTAuNDI4LTUuNzEyLDAuMTQ0Yy0yLjQ3NSwwLjU3Mi0zLjcxMywwLjg1OS0zLjcxMywwLjg1OWwtMS40MzEsMC43MTVsLTEuMTM2LDAuODU5ICAgYy0wLjk1MiwwLjU2OC0xLjk5OSwxLjU2Ny0zLjE0MiwyLjk5NWMtMS4xMzcsMS40MjMtMi4wODgsMy4wOTMtMi44NDgsNC45OTZjLTguOTUyLDIzLjAzMS0xOS4xMyw0NC40NDQtMzAuNTUzLDY0LjIzOCAgIGMtNy4wNDMsMTEuODAzLTEzLjUxMSwyMi4wMzItMTkuNDE4LDMwLjY5M2MtNS44OTksOC42NTgtMTAuODQ4LDE1LjAzNy0xNC44NDIsMTkuMTI2Yy00LDQuMDkzLTcuNjEsNy4zNzItMTAuODUyLDkuODQ5ICAgYy0zLjIzNywyLjQ3OC01LjcwOCwzLjUyNS03LjQxOSwzLjE0MmMtMS43MTUtMC4zODMtMy4zMy0wLjc2My00Ljg1OS0xLjE0M2MtMi42NjMtMS43MTQtNC44MDUtNC4wNDUtNi40Mi02Ljk5NSAgIGMtMS42MjItMi45NS0yLjcxNC02LjY2My0zLjI4NS0xMS4xMzZjLTAuNTY4LTQuNDc2LTAuOTA0LTguMzI2LTEtMTEuNTYzYy0wLjA4OS0zLjIzMy0wLjA0OC03LjgwNiwwLjE0NS0xMy43MDYgICBjMC4xOTgtNS45MDMsMC4yODctOS44OTcsMC4yODctMTEuOTkxYzAtNy4yMzQsMC4xNDEtMTUuMDg1LDAuNDI0LTIzLjU1NWMwLjI4OC04LjQ3LDAuNTIxLTE1LjE4MSwwLjcxNi0yMC4xMjUgICBjMC4xOTQtNC45NDksMC4yODQtMTAuMTg1LDAuMjg0LTE1LjcwNXMtMC4zMzYtOS44NDktMS0xMi45OTFjLTAuNjU2LTMuMTM4LTEuNjYzLTYuMTg0LTIuOTktOS4xMzcgICBjLTEuMzM1LTIuOTUtMy4yODktNS4yMzItNS44NTMtNi44NTJjLTIuNTY5LTEuNjE4LTUuNzYzLTIuOTAyLTkuNTY0LTMuODU2Yy0xMC4wODktMi4yODMtMjIuOTM2LTMuNTE4LTM4LjU0Ny0zLjcxICAgYy0zNS40MDEtMC4zOC01OC4xNDgsMS45MDYtNjguMjM2LDYuODU1Yy0zLjk5NywyLjA5MS03LjYxNCw0Ljk0OC0xMC44NDgsOC41NjJjLTMuNDI3LDQuMTg5LTMuOTA1LDYuNDc1LTEuNDMxLDYuODUxICAgYzExLjQyMiwxLjcxMSwxOS41MDgsNS44MDQsMjQuMjY3LDEyLjI3NWwxLjcxNSwzLjQyOWMxLjMzNCwyLjQ3NCwyLjY2Niw2Ljg1NCwzLjk5OSwxMy4xMzRjMS4zMzEsNi4yOCwyLjE5LDEzLjIyNywyLjU2OCwyMC44MzcgICBjMC45NSwxMy44OTcsMC45NSwyNS43OTMsMCwzNS42ODljLTAuOTUzLDkuOS0xLjg1MywxNy42MDctMi43MTIsMjMuMTI3Yy0wLjg1OSw1LjUyLTIuMTQzLDkuOTkzLTMuODU1LDEzLjQxOCAgIGMtMS43MTUsMy40MjYtMi44NTYsNS41Mi0zLjQyOCw2LjI4Yy0wLjU3MSwwLjc2LTEuMDQ3LDEuMjM5LTEuNDI1LDEuNDI3Yy0yLjQ3NCwwLjk0OC01LjA0NywxLjQzMS03LjcxLDEuNDMxICAgYy0yLjY2NywwLTUuOTAxLTEuMzM0LTkuNzA3LTRjLTMuODA1LTIuNjY2LTcuNzU0LTYuMzI4LTExLjg0Ny0xMC45OTJjLTQuMDkzLTQuNjY1LTguNzA5LTExLjE4NC0xMy44NS0xOS41NTggICBjLTUuMTM3LTguMzc0LTEwLjQ2Ny0xOC4yNzEtMTUuOTg3LTI5LjY5MWwtNC41NjctOC4yODJjLTIuODU1LTUuMzI4LTYuNzU1LTEzLjA4Ni0xMS43MDQtMjMuMjY3ICAgYy00Ljk1Mi0xMC4xODUtOS4zMjktMjAuMDM3LTEzLjEzNC0yOS41NTRjLTEuNTIxLTMuOTk3LTMuODA2LTcuMDQtNi44NTEtOS4xMzRsLTEuNDI5LTAuODU5Yy0wLjk1LTAuNzYtMi40NzUtMS41NjctNC41NjctMi40MjcgICBjLTIuMDk1LTAuODU5LTQuMjgxLTEuNDc1LTYuNTY3LTEuODU0bC03OC4yMjksMC41NjhjLTcuOTk0LDAtMTMuNDE4LDEuODExLTE2LjI3NCw1LjQyOGwtMS4xNDMsMS43MTEgICBDMC4yODgsMTQwLjE0NiwwLDE0MS42NjgsMCwxNDMuNzYzYzAsMi4wOTQsMC41NzEsNC42NjQsMS43MTQsNy43MDdjMTEuNDIsMjYuODQsMjMuODM5LDUyLjcyNSwzNy4yNTcsNzcuNjU5ICAgYzEzLjQxOCwyNC45MzQsMjUuMDc4LDQ1LjAxOSwzNC45NzMsNjAuMjM3YzkuODk3LDE1LjIyOSwxOS45ODUsMjkuNjAyLDMwLjI2NCw0My4xMTJjMTAuMjc5LDEzLjUxNSwxNy4wODMsMjIuMTc2LDIwLjQxMiwyNS45ODEgICBjMy4zMzMsMy44MTIsNS45NTEsNi42NjIsNy44NTQsOC41NjVsNy4xMzksNi44NTFjNC41NjgsNC41NjksMTEuMjc2LDEwLjA0MSwyMC4xMjcsMTYuNDE2ICAgYzguODUzLDYuMzc5LDE4LjY1NCwxMi42NTksMjkuNDA4LDE4Ljg1YzEwLjc1Niw2LjE4MSwyMy4yNjksMTEuMjI1LDM3LjU0NiwxNS4xMjZjMTQuMjc1LDMuOTA1LDI4LjE2OSw1LjQ3Miw0MS42ODQsNC43MTZoMzIuODM0ICAgYzYuNjU5LTAuNTc1LDExLjcwNC0yLjY2OSwxNS4xMzMtNi4yODNsMS4xMzYtMS40MzFjMC43NjQtMS4xMzYsMS40NzktMi45MDEsMi4xMzktNS4yNzZjMC42NjgtMi4zNzksMS01LDEtNy44NTEgICBjLTAuMTk1LTguMTgzLDAuNDI4LTE1LjU1OCwxLjg1Mi0yMi4xMjRjMS40MjMtNi41NjQsMy4wNDUtMTEuNTEzLDQuODU5LTE0Ljg0NmMxLjgxMy0zLjMzLDMuODU5LTYuMTQsNi4xMzYtOC40MTggICBjMi4yODItMi4yODMsMy45MDgtMy42NjYsNC44NjItNC4xNDJjMC45NDgtMC40NzksMS43MDUtMC44MDQsMi4yNzYtMC45OTljNC41NjgtMS41MjIsOS45NDQtMC4wNDgsMTYuMTM2LDQuNDI5ICAgYzYuMTg3LDQuNDczLDExLjk5LDkuOTk2LDE3LjQxOCwxNi41NmM1LjQyNSw2LjU3LDExLjk0MywxMy45NDEsMTkuNTU1LDIyLjEyNGM3LjYxNyw4LjE4NiwxNC4yNzcsMTQuMjcxLDE5Ljk4NSwxOC4yNzQgICBsNS43MDgsMy40MjZjMy44MTIsMi4yODYsOC43NjEsNC4zOCwxNC44NTMsNi4yODNjNi4wODEsMS45MDIsMTEuNDA5LDIuMzc4LDE1Ljk4NCwxLjQyN2w3My4wODctMS4xNCAgIGM3LjIyOSwwLDEyLjg1NC0xLjE5NywxNi44NDQtMy41NzJjMy45OTgtMi4zNzksNi4zNzMtNSw3LjEzOS03Ljg1MWMwLjc2NC0yLjg1NCwwLjgwNS02LjA5MiwwLjE0NS05LjcxMiAgIEM1NDYuNzgyLDQwNC4yNSw1NDYuMTE1LDQwMS43MjUsNTQ1LjQ1MSw0MDAuMjk4eiIgZmlsbD0iI0ZGRkZGRiIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=') no-repeat center;
+        }
+        &.loader {
+            animation: spin 0.3s ease-in infinite;
+        }
+    }
+
+    .facebook {
+        .auth_li_size;
+        &.image {
+
+        }
+    }
+
+    .authorization {
+        background-color: red;
+    }
+
+    li.logged {
+        padding-left: 10px;
+        padding-right: 10px;
+        a {
+            text-decoration: none;
+            color: #93aaff;
+        }
+        &:hover {
+            color: black;
+            a {
+                color: black;
+
+            }
+
+        }
+
+    }
+
+    .header_menu {
+        margin: 0 auto;
+        width: auto;
+        text-align: right;
+        overflow: hidden;
+        ul {
+            li {
+                font-weight: bold;
+                display: inline-block;
+                font-size: 10px;
+                line-height: 30px;
+                margin: 5px 2px;
+                background: rgba(255, 255, 255, 0.2);
+                transition: all 0.2s linear;
+                border-radius: 3px;
+                -moz-border-radius: 3px;
+                -khtml-border-radius: 3px;
+                -moz-box-shadow: 0 0 10px rgba(111, 189, 255, 0.4);
+                -webkit-box-shadow: 0 0 10px rgba(111, 189, 255, 0.4);
+                box-shadow: 0 0 10px rgba(111, 189, 255, 0.4);
+                a {
+                    display: block;
+                }
+                &:hover {
+                    .li-hovered;
+                }
+                &:nth-last-child(1) {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+    .logo {
+        margin: 20px 0 0 18px;
+        float: left;
+    }
+
+    .listeners {
+        border: 0 none;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .listenersdiv {
+        max-width: 205px;
+        margin: 0 auto;
+    }
+
+    .bar {
+        width: 280px;
+        margin: 0 25px 0 16px;
+    }
+
+    .comment_block {
+        width: 280px;
+        margin: 0 25px 0 16px;
+        float: left;
+    }
+
+    .info_br {
+        width: 280px;
+        margin: 0 25px 0 16px;
+        float: right;
+        position: relative;
+        .info_title {
+            background: rgba(255, 255, 255, 0.2);
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            font-size: 17px;
+            margin: 20px 0 0 9px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .info_wrap {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            width: 270px;
+            height: 400px;
+            margin: 20px 0 0 9px;
+            padding-left: 10px;
+            position: absolute;
+            z-index: 100;
+            transition: all 1s linear;
+            overflow: hidden;
+            .info {
+                margin-top: 10px;
+                p {
+                    font-weight: bold;
+                    margin: 0 10px 0 10px;
+                }
+                span {
+                    margin: 0 10px 0 10px;
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .title {
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 17px;
+    }
+
+    .auth {
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 17px;
+        float: right;
+        width: 280px;
+        margin: 15px;
+    }
+
+    .comment_block_title {
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 17px;
+        float: left;
+        margin: 0 0 10px 0;
+    }
+
+    .comm_box {
+        position: relative;
+        width: 280px;
+        height: 293px;
+        margin: 0 0 6px 0;
+        float: left;
+    }
+
+    .comment {
+        display: none;
+        background: rgba(255, 255, 255, 0.1);
+        width: 96%;
+        margin: 0 0 5px 0;
+        padding: 10px 0 15px 0;
+        font-size: 13px;
+        float: left;
+        position: relative;
+        p {
+            font-weight: bold;
+            margin: 0 10px 0 10px;
+        }
+        span {
+            margin: 0 10px 5px 10px;
+            display: block;
+        }
+        .datetime {
+            font-size: 9px;
+            position: absolute;
+            right: 0;
+            bottom: -3px;
+        }
+    }
+
+    .mCustomScrollBox {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        outline: none;
+        direction: ltr;
+    }
+
+    .mCSB_container {
+        overflow: hidden;
+        width: auto;
+        height: auto;
+    }
+
+    .mCSB_scrollTools {
+        position: absolute;
+        width: 3px;
+        height: auto;
+        left: auto;
+        top: 0;
+        right: 4px;
+        bottom: 0;
+        .mCSB_draggerContainer {
+            background: rgba(255, 255, 255, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: auto;
+        }
+        .mCSB_dragger {
+            background: rgba(13, 4, 230, 0.7);
+            cursor: pointer;
+            width: 100%;
+            height: 30px;
+            z-index: 1;
+        }
+    }
+
+    #comment_add {
+        background: rgba(255, 255, 255, 0.3);
+        width: 100%;
+        height: 43px;
+        line-height: 43px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        float: left;
+        display: none;
+    }
+
+    .player {
+        //background: url('../images/template/pleer.png') top;
+        width: 304px;
+        height: 389px;
+        padding: 20px 20px 0 20px;
+        margin: 0 25px 0 0;
+        border-top: 4px solid rgba(255, 255, 255, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-right: 1px solid rgba(255, 255, 255, 0.3);
+        float: left;
+        li {
+            background: rgba(85, 146, 255, 0.6);
+            color: @color_2;
+            display: block;
+            margin: 5px;
+            float: left;
+            a {
+                width: 80px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                font-size: 11px;
+                color: @color_1;
+                display: block;
+                text-decoration: none;
+                float: left;
+                -o-transition: all 0.2s linear;
+                -moz-transition: all 0.2s linear;
+                -webkit-transition: all 0.2s linear;
+                transition: all 0.2s linear;
+                &:hover {
+                    text-decoration: none;
+                    background: #6da3e9;
+                }
+            }
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .player_title {
+        width: 100%;
+        margin: 0 0 15px 0;
+        font-size: 14px;
+        color: @color_1;
+        float: left;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .volume {
+        width: 230px;
+        height: auto;
+        margin: 0 auto;
+        #volume_slider {
+            width: 150px;
+            margin: 10px 0 0 0;
+        }
+        .uiicon {
+            padding: 4px;
+            margin-top: 5px;
+            span.ui-icon {
+                float: left;
+                margin: -2px 5px 0 0;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .playerlistcontent {
+        margin: 0 auto;
+        width: 180px;
+    }
+
+    .active {
+        .switcherClass(#6da3e9);
+    }
+    .starting {
+        .switcherClass(rgba(255, 153, 188, 0.46));
+    }
+    .paused {
+        .switcherClass(rgba(27, 255, 237, 0.32));
+        a {
+            &:hover {
+                background: rgba(29, 156, 135, 0.48) !important;
+            }
+        }
+    }
+
+    .switcherClass(@class) {
+        a {
+            background: @class;
+        }
+    }
+
+    .player_name {
+        width: 306px;
+        height: 138px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: bold;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .eq {
+        //background: url('../images/template/eq.png') no-repeat;
+        width: 306px;
+        height: 82px;
+        margin: 0 0 47px 0;
+        float: left;
+    }
+
+    .error {
+        //background: url('../images/template/error.gif');
+    }
+
+    .sound {
+        width: 100%;
+        float: left;
+        p {
+            font-size: 12px;
+        }
+    }
+
+    #widgets {
+        width: 280px;
+        opacity: 0.95;
+        float: left;
+    }
+
+    .panel {
+        //background: url('../images/template/panel.png');
+        width: 990px;
+        height: 82px;
+        margin: -44px 0 20px 0;
+        position: relative;
+        z-index: 2;
+        float: left;
+    }
+
+    .panel_center {
+        width: 340px;
+        text-align: center;
+        margin: 0 0 0px -170px;
+        font-size: 12px;
+        position: absolute;
+        top: 14px;
+        left: 50%;
+    }
+
+    .text {
+        width: 100%;
+        min-height: 200px;
+    }
+
+    .panel_left {
+        margin: 32px 20px 0 20px;
+        font-size: 13px;
+        color: @color_3;
+        font-weight: bold;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+        float: left;
+    }
+
+    .panel_right {
+        margin: 32px 20px 0 20px;
+        font-size: 13px;
+        color: @color_3;
+        font-weight: bold;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+        float: left;
+        text-align: right;
+        float: right;
+    }
+
+    .link {
+        cursor: pointer;
+    }
+
+    .formerror {
+        color: @color_4;
+        font-size: small;
+    }
+
+    .required {
+        &::before {
+            content: "*";
+            color: @color_5;
+        }
+    }
+
+    .audiodiv {
+        margin: 10px 0;
+    }
+
+    audio {
+        outline: 0;
+    }
+
+    .dialog_wrapper {
+        display: none;
+    }
+
+    .dialog_infoblock {
+        font-size: 1em;
+        background: rgba(85, 146, 255, 0.3);
+        padding: 7px;
+        margin: 3px 0;
+        p {
+            margin-bottom: 2px;
+        }
+    }
+
+
+    /* Large Devices, Wide Screens */
+    @wide_screen: 1200px;
+    /* Medium Devices, Desktops */
+    @desktops: 1000px;
+    /* Small Devices, Tablets */
+    @small_device: 768px;
+    /* Extra Small Devices, Phones */
+    @phones: 480px;
+    /* Custom, iPhone Retina */
+    @iphone_retina: 320px;
+
+    /*==========  Desktop First Method  ==========*/
+    //То, что меньше
+    /* Large Devices, Wide Screens */
+    @media only screen and (max-width: @wide_screen) {
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width: @desktops) {
+        body {
+            background-size: inherit;
+        }
+
+        .container {
+            top: 15px;
+        }
+
+        .center {
+            min-width: 300px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .blur {
+            min-width: auto;
+            width: 300px;
+            height: auto;
+            background: none;
+            border: none;
+        }
+
+        .panel {
+            display: none;
+        }
+
+        .widgets {
+            width: 300px;
+        }
+
+        .player {
+            width: 257px;
+            margin: 0;
+            border: none;
+            height: auto;
+        }
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width: @small_device) {
+
+    }
+
+    /* Extra Small Devices, Phones */
+    @media only screen and (max-width: @phones) {
+
+    }
+
+    /* Custom, iPhone Retina */
+    @media only screen and (max-width: @iphone_retina) {
+
+    }
+
+    /*==========  Mobile First Method  ==========*/
+    //То что больше
+    /* Custom, iPhone Retina */
+    @media only screen and (min-width: @iphone_retina) {
+
+    }
+
+    /* Extra Small Devices, Phones */
+    @media only screen and (min-width: @phones) {
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width: @small_device) {
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width: @desktops) {
+
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width: @wide_screen) {
+
+    }
+</style>
