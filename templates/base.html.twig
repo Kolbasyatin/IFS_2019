@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Бесконечный полёт корабля МДС</title>
+    <meta name="description" content="{% spaceless %}Сайт трансляции аудиокниг проекта 'Модель для сборки
+'. «Модель для сборки» (сокращённо МДС) —радиопередача, стартовавшая в 1995 году благодаря
+    автору и ведущему Владу Коппу. Формат радиопередачи - аудиокнига, радиопостановка фантастической, современной прозы на фоне музы
+ки в стиле 'Ambient',
+    'Psyhodelic', 'Downtempo'. Музыкальное сопровождение часто отражает темп повествования, окутывая эфир магическими звуками бескон
+ечности. Этот конструктор
+    мы можем собирать до того времени, пока не дойдем до края вселенной. Вы корабле MDS. Вы в путешествии по бесконечному. Я рад за
+Вас...{% endspaceless %}"/>
+    <meta name="keywords" content="{% spaceless %}МДС,Модель для сборки,Аудиокниги,Аудиотрансляция,Фантастик
+а, Книги, Радио{% endspaceless %}"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
 </html>

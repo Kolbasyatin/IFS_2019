@@ -7,10 +7,11 @@
 
 // any CSS you require will output into a single css file (app.css in this case)
 
-
+//https://github.com/symfony/webpack-encore/issues/242#issuecomment-418716800
+require('@babel/polyfill');
 import Vue from 'vue';
 import App from './vue/App';
-
+import store from './vue/store'
 // require('../css/app.css');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
@@ -19,5 +20,6 @@ import App from './vue/App';
 new Vue({
     el: '#app',
     template: '<App />',
-    render: h => h(App)
+    render: h => h(App),
+    store
 });
