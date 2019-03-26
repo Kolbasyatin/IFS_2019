@@ -16,7 +16,13 @@ const sources = [
 ];
 
 const state = {
-    sources
+    sources,
+    currentSourceId: ''
+};
+const mutations = {
+    setSourceId(state, {id}) {
+        state.currentSourceId = id;
+    }
 };
 const getters = {
     getSourceById: state => id =>  {
@@ -26,11 +32,16 @@ const getters = {
             }
         }
 
+        return {};
+    },
+    getCurrentSource: (state, getters) => {
+        return getters.getSourceById(state.currentSourceId);
     }
 };
 
 export default {
     namespaced: true,
     state,
-    getters
+    getters,
+    mutations
 }

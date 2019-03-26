@@ -1,9 +1,3 @@
-//** TODO: Вынести аудио в компонент, навешать на эвенты комиты мутаций и через watch отслеживать изменения ?
-const audio = new Audio();
-audio.preload = 'none';
-audio.onplaying = () => {
-    console.log(this);
-};
 
 const state = {
     playerState: {
@@ -38,28 +32,28 @@ const mutations = {
     // }
 };
 
-const getters = {
-    getPlayerStatus({player}) {
-        return audio.paused;
-    }
-};
-
-const actions = {
-    async startPlay({rootGetters, commit}, {id}) {
-        const source = rootGetters['sources/getSourceById'](id);
-        // commit('setIsStarting');
-        audio.src = source.url;
-        await audio.play();
-        // commit('setIsPlayingNow');
-    }
-};
+// const getters = {
+//     getPlayerStatus({player}) {
+//         return audio.paused;
+//     }
+// };
+//
+// const actions = {
+//     async startPlay({rootGetters, commit}, {id}) {
+//         const source = rootGetters['sources/getSourceById'](id);
+//         // commit('setIsStarting');
+//         audio.src = source.url;
+//         await audio.play();
+//         // commit('setIsPlayingNow');
+//     }
+// };
 
 export default {
     namespaced: true,
     state,
     mutations,
-    getters,
-    actions
+    // getters,
+    // actions
 }
 
 

@@ -59,29 +59,9 @@
                             Выберите спутник:
                         </div>
 
-                        <PlayerList />
+                        <Player />
 
-                        <div class="sound">
 
-                            <div class="volume">
-                                <p class="ui-state-default ui-corner-all ui-helper-clearfix  uiicon">
-                                    <span class="ui-icon ui-icon-play ui-state-disabled" id="playsource"></span>
-                                    <span class="ui-icon ui-icon-pause ui-state-disabled" id="pausesource"></span>
-                                    Время в полете: <span id="timeleft">∞</span>
-                                </p>
-                                <p class="ui-state-default ui-corner-all ui-helper-clearfix uiicon">
-                                    <span class="ui-icon ui-icon-volume-on" id="mute"></span>
-                                    Уровень громкости <span id="volume_indicator">60%</span>
-                                </p>
-
-                                <div id="volume_slider"
-                                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header ui-slider-range-min"
-                                         style="width: 60%;"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                                          style="left: 60%;"></span></div>
-                            </div>
-                        </div>
                         <div class="break"></div>
 
                         <div class="player_name">
@@ -142,11 +122,11 @@
 </template>
 
 <script>
-    import PlayerList from "./components/PlayerList";
+    import Player from "./components/Player";
     const logo = require('../../images/template/logo.png');
     export default {
         name: "App",
-        components: {PlayerList},
+        components: {Player},
         data() {
             return {
                 images: {
