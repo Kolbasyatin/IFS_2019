@@ -3,6 +3,12 @@ import Vue from 'vue';
 import createLogger from 'vuex/dist/logger'
 import player from './modules/player'
 import sources from "./modules/sources";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlay, faPause, faVolumeOff, faVolumeMute, faVolumeDown, faVolumeUp} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
+library.add(faPlay, faPause, faVolumeOff, faVolumeMute, faVolumeDown, faVolumeUp);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuex);
 

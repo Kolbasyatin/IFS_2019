@@ -1,5 +1,15 @@
 <template>
+    <transition
+            name="animated-css"
+            enter-active-class="animated fadeIn"
+            leave-active-class="animated fadeOut"
+            mode="out-in"
+            class="animated-status"
+            :duration="{enter:200, leave: 200}"
+            appear
+    >
     <div>
+        <Preload />
         <div class="shadow"></div>
         <div class="container">
             <div class="center">
@@ -77,10 +87,10 @@
 
                     <div id="widgets">
                         <div id="vk_groups" style="width: 280px; height: 400px; background: none;">
-                            <iframe name="fXD6935f" frameborder="0"
-                                    src="https://vk.com/widget_community.php?app=0&amp;width=280px&amp;_ver=1&amp;gid=144631646&amp;mode=4&amp;color1=4B6D95&amp;color2=EFE0E0&amp;color3=A8935E&amp;class_name=&amp;height=400&amp;url=http%3A%2F%2Fmds.planeset.ru%2F&amp;referrer=&amp;title=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%BE%D0%BB%D1%91%D1%82%20%D0%BA%D0%BE%D1%80%D0%B0%D0%B1%D0%BB%D1%8F%20%D0%9C%D0%94%D0%A1&amp;169a0d0713f"
-                                    width="280" height="400" scrolling="no" id="vkwidget1"
-                                    style="overflow: hidden; height: 400px;"></iframe>
+                            <!--<iframe name="fXD6935f" frameborder="0"-->
+                                    <!--src="https://vk.com/widget_community.php?app=0&amp;width=280px&amp;_ver=1&amp;gid=144631646&amp;mode=4&amp;color1=4B6D95&amp;color2=EFE0E0&amp;color3=A8935E&amp;class_name=&amp;height=400&amp;url=http%3A%2F%2Fmds.planeset.ru%2F&amp;referrer=&amp;title=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%BE%D0%BB%D1%91%D1%82%20%D0%BA%D0%BE%D1%80%D0%B0%D0%B1%D0%BB%D1%8F%20%D0%9C%D0%94%D0%A1&amp;169a0d0713f"-->
+                                    <!--width="280" height="400" scrolling="no" id="vkwidget1"-->
+                                    <!--style="overflow: hidden; height: 400px;"></iframe>-->
                         </div>
                     </div>
 
@@ -119,14 +129,17 @@
 
 
     </div>
+    </transition>
 </template>
 
 <script>
     import Player from "./components/Player";
+    import Preload from "./components/Preload";
     const logo = require('../../images/template/logo.png');
+
     export default {
         name: "App",
-        components: {Player},
+        components: {Preload, Player},
         data() {
             return {
                 images: {
@@ -137,6 +150,10 @@
         }
     }
 </script>
+
+<style>
+    @import "~animate.css";
+</style>
 
 <style lang="less">
     //@import (css) '~jquery-ui-themes/jquery-ui.css';
@@ -173,17 +190,19 @@
         margin: 0;
         height: 100%;
         //noinspection CssUnknownTarget
-        background: url('/build/images/backgrounds/wallhaven-202898.jpg') repeat-y top;
+        background-image: url('/build/images/backgrounds/wallhaven-202898.jpg');
+        background-repeat: repeat-y;
+        background-position: top;
         background-size: cover;
         width: 100%;
         font-size: 12px;
         color: @color_1;
         font-family: @font_family_1;
         position: relative;
-        -o-transition: all 0.3s linear;
-        -moz-transition: all 0.3s linear;
+        /*-o-transition: all 0.3s linear;*/
+        /*-moz-transition: all 0.3s linear;*/
         -webkit-transition: all 0.3s linear;
-        transition: all 0.3s linear;
+        /*transition: all 0.3s linear;*/
 
         a {
             outline: 0;
@@ -352,6 +371,8 @@
     .logo {
         margin: 20px 0 0 18px;
         float: left;
+        height: 42px;
+
     }
 
     .listeners {
@@ -562,7 +583,7 @@
         float: left;
 
         li {
-            background: rgba(85, 146, 255, 0.6);
+            background: rgba(82, 87, 182, 0.6);
             color: @color_2;
             display: block;
             margin: 5px;
@@ -636,10 +657,11 @@
         margin: 0 auto;
         width: 180px;
     }
-
-    .active {
-        .switcherClass(#6da3e9);
+    ul#playerlist li, a {
+        border-radius: 3px;
     }
+
+
 
     .starting {
         .switcherClass(rgba(255, 153, 188, 0.46));

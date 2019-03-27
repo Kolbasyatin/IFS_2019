@@ -17,9 +17,12 @@ import store from './vue/store'
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 
-new Vue({
-    el: '#app',
+let vm = new Vue({
+    // el: '#app',
     template: '<App />',
     render: h => h(App),
-    store
+    store,
 });
+setTimeout(() => {
+    vm.$mount('#app');
+}, 1000);

@@ -55,7 +55,7 @@ Encore
     //.addEntry('admin', './assets/js/admin.js')
     .enableLessLoader()
     .enableVueLoader()
-
+    .enableBuildNotifications(false)
     //Static images copy
     .copyFiles({
         from: './assets/images',
