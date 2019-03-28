@@ -25,4 +25,4 @@ let vm = new Vue({
 });
 setTimeout(() => {
     vm.$mount('#app');
-}, 1000);
+}, 500);

@@ -1,4 +1,7 @@
+let webpack = require('webpack');
+
 var Encore = require('@symfony/webpack-encore');
+
 
 Encore
 // directory where compiled assets will be stored
@@ -40,6 +43,13 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
+
+
+    .addPlugin(
+        new webpack.ContextReplacementPlugin(
+            /moment[/\\]locale$/, /ru|en-gb/
+        )
+    )
 
     // enables Sass/SCSS support
     //.enableSassLoader()

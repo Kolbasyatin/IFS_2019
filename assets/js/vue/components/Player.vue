@@ -193,7 +193,8 @@
     .span-back {
         border: 1px solid #333;
         font-weight: 500;
-        /*background: url('../../../images/ui/ui-bg_dots-small_20_333333_2x2.0f7b61f7.png');*/
+        //noinspection CssUnknownTarget
+        background: url('/build/images/ui/ui-bg_dots-small_20_333333_2x2.0f7b61f7.png');
         border-radius: 4px;
         padding: 4px;
         margin-top: 5px;

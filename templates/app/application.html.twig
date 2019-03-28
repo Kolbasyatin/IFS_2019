@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div id="app" v-cloak>
+    <div id="app" {{ (app.environment == 'prod') ? 'v-cloak': '' }}>
     </div>
 
     <style>
@@ -10,9 +10,30 @@
             height: 100%;
             left: 0;
             top: 0;
-            background: black;
             z-index: 10;
+
+            background: linear-gradient(107deg, #000000, #21e8e1, #000000, #0bf7f9);
+            background-size: 800% 800%;
+            -webkit-animation: preload 4s ease infinite;
+            -moz-animation: preload 4s ease infinite;
+            animation: preload 4s ease infinite;
         }
+        @-webkit-keyframes preload {
+            0%{background-position:0% 39%}
+            50%{background-position:100% 62%}
+            100%{background-position:0% 39%}
+        }
+        @-moz-keyframes preload {
+            0%{background-position:0% 39%}
+            50%{background-position:100% 62%}
+            100%{background-position:0% 39%}
+        }
+        @keyframes preload {
+            0%{background-position:0% 39%}
+            50%{background-position:100% 62%}
+            100%{background-position:0% 39%}
+        }
+
 
     </style>
 {% endblock body %}
