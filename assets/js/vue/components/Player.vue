@@ -3,7 +3,7 @@
         <div class="playerlistcontent">
             <ul id="playerlist">
                 <template v-for="source in sources">
-                    <li :class="switcherClass(source.id)">
+                    <li :class="[switcherClass(source.id), flashing]" @animationend="stopFlash">
                         <a href="#" :id="source.id" @click.prevent="changeSource(source.id)"
                            :title="source.fullName">{{source.name}}</a>
                     </li>
@@ -14,7 +14,7 @@
         <div class="sound">
             <div class="volume">
                 <p class="span-back">
-                    <span :class="classes.resumeClass" @click.prevent="changeSource(previousSourceId)"><font-awesome-icon
+                    <span :class="classes.resumeClass" @click.prevent="resumeSource(previousSourceId)"><font-awesome-icon
                             icon="play"/></span>
                     <span :class="classes.pauseClass" @click.prevent="changeSource('')"><font-awesome-icon
                             icon="pause"/></span>
@@ -49,7 +49,8 @@
                 volume: 0.6,
                 previousSourceId: '',
                 paused: true,
-                startPlaying: false
+                startPlaying: false,
+                flash: false
             }
         },
         computed: {
@@ -85,6 +86,11 @@
                     pauseClass: (Object.keys(this.currentSource).length && !this.paused && !this.startPlaying) ? 'clickable' : 'disabled'
                 }
             },
+            flashing() {
+                return {
+                    flashing: this.flash
+                }
+            },
             ...mapGetters('sources', {
                 currentSource: 'getCurrentSource'
             }),
@@ -105,6 +111,7 @@
                 } else {
                     this.pause();
                 }
+
             },
             volume(current) {
                 this.setVolume(current);
@@ -126,18 +133,28 @@
                     };
                 }
             },
+            resumeSource(id) {
+                if (id && this.paused) {
+                    this.changeSource(id);
+                } else {
+                    this.blinkByLinks();
+                }
+
+            },
             changeSource(id) {
-                this.$store.commit('sources/setSourceId', {id})
+                console.log(id);
+                this.$store.commit('sources/setSourceId', {id});
+            },
+            blinkByLinks() {
+                this.flash = true;
             },
             async play() {
                 this.player.src = this.currentSource.url;
                 try {
                     await this.player.play();
                 } catch (error) {
-                    console.log('it was interrupting playing');
+                    console.log('It was interrupting playing');
                 }
-
-
             },
             async pause() {
                 await this.player.pause();
@@ -159,6 +176,9 @@
             },
             pauseEvent() {
                 // console.log('imlement pauseEvent');
+            },
+            stopFlash() {
+                this.flash = false;
             }
 
         },
@@ -301,4 +321,27 @@
             background-position: 64% 0%
         }
     }
+
+    .flashing {
+        animation: flash ease-in-out .5s;
+    }
+
+    @keyframes flash {
+        0% {
+            background-color: #0bf7f9;
+        }
+        30% {
+            background-color: lightblue;
+        }
+        50% {
+            background-color: lightskyblue;
+        }
+        70% {
+            background-color: lightblue;
+        }
+        100% {
+            background-color: #0bf7f9;
+        }
+    }
+
 </style>

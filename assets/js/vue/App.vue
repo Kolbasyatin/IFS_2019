@@ -472,41 +472,7 @@
         margin: 0 0 10px 0;
     }
 
-    .comm_box {
-        position: relative;
-        width: 280px;
-        height: 293px;
-        margin: 0 0 6px 0;
-        float: left;
-    }
 
-    .comment {
-        display: block;
-        background: rgba(255, 255, 255, 0.1);
-        width: 96%;
-        margin: 0 0 5px 0;
-        padding: 10px 0 15px 0;
-        font-size: 13px;
-        float: left;
-        position: relative;
-
-        p {
-            font-weight: bold;
-            margin: 0 10px 0 10px;
-        }
-
-        span {
-            margin: 0 10px 5px 10px;
-            display: block;
-        }
-
-        .datetime {
-            font-size: 9px;
-            position: absolute;
-            right: 0;
-            bottom: -3px;
-        }
-    }
 
     .mCustomScrollBox {
         position: relative;

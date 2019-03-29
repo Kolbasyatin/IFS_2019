@@ -23,6 +23,7 @@
         "core-js": "2",
         "moment": "^2.24.0",
         "vue": "^2.6.10",
+        "vue-custom-scrollbar": "^1.0.0",
         "vue-loader": "^15.7.0",
         "vue-slider-component": "^3.0.17",
         "vue-template-compiler": "^2.6.10",
