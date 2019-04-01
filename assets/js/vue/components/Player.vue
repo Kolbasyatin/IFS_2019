@@ -2,10 +2,12 @@
     <div>
         <div class="playerlistcontent">
             <ul id="playerlist">
-                <template v-for="source in sources">
+                <template v-for="source of sources">
                     <li :class="[switcherClass(source.id), flashing]" @animationend="stopFlash">
                         <a href="#" :id="source.id" @click.prevent="changeSource(source.id)"
-                           :title="source.fullName">{{source.name}}</a>
+                           :title="`${source.fullName}..
+                           ${informer(source.id).songName}.
+                           ${amount(source.id)}ч.`">{{source.name}}</a>
                     </li>
                 </template>
             </ul>
@@ -92,7 +94,12 @@
                 }
             },
             ...mapGetters('sources', {
-                currentSource: 'getCurrentSource'
+                currentSource: 'getCurrentSource',
+                getSource: 'getSourceById'
+            }),
+            ...mapGetters('informer', {
+                informer: 'getInformer',
+                amount: 'getPeopleAmount'
             }),
             ...mapState('sources', [
                 'sources', 'currentSourceId'

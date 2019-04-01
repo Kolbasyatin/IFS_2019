@@ -8,100 +8,102 @@
             :duration="{enter:200, leave: 200}"
             appear
     >
-    <div>
-        <div class="shadow"></div>
-        <div class="container">
-            <div class="center">
-                <div class="blur">
+        <div>
+            <div class="shadow"></div>
+            <div class="container">
+                <div class="center">
+                    <div class="blur">
 
-                    <div class="header">
-                        <div class="header_menu_bl">
-                            <div class="header_menu">
-                                <ul class="auth-ul">
-                                    <li class="login">
-                                        <!--<a class="vkontakte image" href="http://mds.planeset.ru/login/vkontakte"-->
-                                           <!--title="Авторизация через ВК">-->
+                        <div class="header">
+                            <div class="header_menu_bl">
+                                <div class="header_menu">
+                                    <ul class="auth-ul">
+                                        <li class="login">
+                                            <!--<a class="vkontakte image" href="http://mds.planeset.ru/login/vkontakte"-->
+                                            <!--title="Авторизация через ВК">-->
 
-                                        <!--</a>-->
+                                            <!--</a>-->
 
-                                    </li>
+                                        </li>
 
-                                </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="logo">
+                                <a href="/" title=""><img :src="images.logo" alt=""></a>
+                            </div>
+                            <div class="break"></div>
+
+                            <div class="listeners">
+                                <div class="listenersdiv">
+                                    <p><span id="all_listeners">Экипаж в корабле:</span> <span id="listeners"
+                                                                                               style="">{{peopleAmount ? peopleAmount: '∞'}}</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <div class="logo">
-                            <a href="/" title=""><img :src="images.logo" alt=""></a>
-                        </div>
-                        <div class="break"></div>
 
-                        <div class="listeners">
-                            <div class="listenersdiv">
-                                <p><span id="all_listeners">Экипаж в корабле:</span> <span id="listeners"
-                                                                                           style="">{{peopleAmount}}</span></p>
+                        <Comments/>
+
+
+                        <div class="player">
+                            <div class="player_title">
+                                Выберите спутник:
+                            </div>
+
+                            <Player/>
+
+
+                            <div class="break"></div>
+
+                            <Informer/>
+
+                            <div class="audiodiv">
+
+
                             </div>
                         </div>
-                    </div>
 
-                    <Comments />
-
-
-                    <div class="player">
-                        <div class="player_title">
-                            Выберите спутник:
+                        <div id="widgets">
+                            <Widgets/>
                         </div>
 
-                        <Player />
+                    </div>
 
-
-                        <div class="break"></div>
-
-                        <Informer/>
-
-                        <div class="audiodiv">
-
-
+                    <div class="panel">
+                        <div class="panel_center">
+                            Место: На краю вселенной,
+                            <Time/>
+                        </div>
+                        <div class="panel_left">
+                            Ретранслятор корабля MDS {{year}}г.
+                        </div>
+                        <div class="panel_right">
+                            <span class="link" data-href="http://vk.com/id19627527">Дизайн: Данил Лямин </span>
+                            <br><span class="link" data-href="http://vk.com/zavalyuk">Программинг: Zalex</span>
                         </div>
                     </div>
 
-                    <div id="widgets">
-                        <Widgets />
+                    <div id="dialog-form" title="Оставь след.">
+                        <div id="form">
+
+                        </div>
                     </div>
+                    <div id="user-info" data-is-authenticated="false" data-is-newsmaker="false"></div>
+                    <div id="room-info" data-room-id="" data-room-url=""></div>
+
 
                 </div>
-
-                <div class="panel">
-                    <div class="panel_center">
-                        Место: На краю вселенной, <Time/>
-                    </div>
-                    <div class="panel_left">
-                        Ретранслятор корабля MDS {{year}}г.
-                    </div>
-                    <div class="panel_right">
-                        <span class="link" data-href="http://vk.com/id19627527">Дизайн: Данил Лямин </span>
-                        <br><span class="link" data-href="http://vk.com/zavalyuk">Программинг: Zalex</span>
-                    </div>
-                </div>
-
-                <div id="dialog-form" title="Оставь след.">
-                    <div id="form">
-
-                    </div>
-                </div>
-                <div id="user-info" data-is-authenticated="false" data-is-newsmaker="false"></div>
-                <div id="room-info" data-room-id="" data-room-url=""></div>
-
-
             </div>
+
+
+            <div id="jp" style="width: 0px; height: 0px;"><img id="jp_poster_0"
+                                                               style="width: 0px; height: 0px; display: none;">
+                <audio id="jp_audio_0" preload="metadata"></audio>
+            </div>
+
+
         </div>
-
-
-
-        <div id="jp" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
-            <audio id="jp_audio_0" preload="metadata"></audio>
-        </div>
-
-
-    </div>
     </transition>
 </template>
 
@@ -110,8 +112,9 @@
     import Widgets from "./components/Widgets";
     import Informer from "./components/Informer";
     import Time from "./components/Time";
-    import {mapGetters} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
     import Comments from "./components/Comments";
+
     const logo = require('../../images/template/logo.png');
 
     export default {
@@ -121,17 +124,25 @@
             return {
                 images: {
                     logo: logo
-                },
-                peopleAmount: '∞'
+                }
             }
         },
         computed: {
             year() {
                 return this.now.format('YYYY');
             },
+            peopleAmount() {
+                return this.amount(this.source.id);
+            },
             ...mapGetters('travel', {
                 now: 'getShipDateTime'
             }),
+            ...mapGetters('informer', {
+                amount: 'getPeopleAmount'
+            }),
+            ...mapGetters('sources', {
+                source: 'getCurrentSource'
+            })
 
         },
         methods: {
@@ -139,11 +150,22 @@
                 if (process.env.NODE_ENV === 'production') {
                     this.$store.dispatch('travel/startTime');
                 }
+            },
+            async init() {
+                await this.initSources();
+                await this.initInformers();
+            },
+            ...mapActions('sources', {
+                initSources: 'getSources'
+            }),
+            ...mapActions('informer', {
+                initInformers: 'getInformers'
+            })
 
-            }
         },
         created() {
             this.startTime();
+            this.init();
         }
 
 
@@ -473,7 +495,6 @@
     }
 
 
-
     .mCustomScrollBox {
         position: relative;
         overflow: hidden;
@@ -616,11 +637,12 @@
     .playerlistcontent {
         margin: 0 auto;
         width: 180px;
+        height: 60px;
     }
+
     ul#playerlist li, a {
         border-radius: 3px;
     }
-
 
 
     .starting {

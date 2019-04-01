@@ -8,6 +8,7 @@ import {faPlay, faPause, faVolumeOff, faVolumeMute, faVolumeDown, faVolumeUp} fr
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import travel from "./modules/travel";
 import comments from "./modules/comments";
+import informer from "./modules/informer";
 
 library.add(faPlay, faPause, faVolumeOff, faVolumeMute, faVolumeDown, faVolumeUp);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
         player,
         sources,
         travel,
-        comments
+        comments,
+        informer
     }
 });
 

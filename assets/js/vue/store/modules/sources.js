@@ -16,12 +16,15 @@ const sources = [
 ];
 
 const state = {
-    sources,
+    sources: [],
     currentSourceId: ''
 };
 const mutations = {
     setSourceId(state, {id}) {
         state.currentSourceId = id;
+    },
+    addSource({sources}, source) {
+        sources.push(source)
     }
 };
 const getters = {
@@ -36,6 +39,21 @@ const getters = {
     },
     getCurrentSource: (state, getters) => {
         return getters.getSourceById(state.currentSourceId);
+    },
+};
+
+const actions = {
+    getSources: async({commit}) => {
+        //** TODO: websocket in this place ?
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(JSON.stringify(sources));
+            }, 1500)
+        });
+        const data = await promise;
+        JSON.parse(data).forEach((source) => {
+            commit('addSource', source);
+        });
     }
 };
 
@@ -43,5 +61,6 @@ export default {
     namespaced: true,
     state,
     getters,
-    mutations
+    mutations,
+    actions
 }
