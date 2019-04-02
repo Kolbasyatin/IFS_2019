@@ -40,6 +40,9 @@ const getters = {
     getCurrentSource: (state, getters) => {
         return getters.getSourceById(state.currentSourceId);
     },
+    getCurrentSourceId: (state, getters) => {
+        return getters.getCurrentSource.id;
+    }
 };
 
 const actions = {

@@ -217,7 +217,7 @@
         position: relative;
         /*-o-transition: all 0.3s linear;*/
         /*-moz-transition: all 0.3s linear;*/
-        -webkit-transition: all 0.3s linear;
+        /*-webkit-transition: all 0.3s linear;*/
         /*transition: all 0.3s linear;*/
 
         a {
@@ -443,7 +443,7 @@
             padding-left: 10px;
             position: absolute;
             z-index: 100;
-            transition: all 1s linear;
+            /*transition: all 1s linear;*/
             overflow: hidden;
 
             .info {
