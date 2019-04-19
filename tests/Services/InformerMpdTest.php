@@ -35,7 +35,6 @@ class InformerMpdTest extends WebTestCase
 
         $result = $mpdClient->play();
         $this->assertEmpty($result);
-        sleep(2);
         $informer = self::$container->get(Informer::class);
         /** @var SourceInfo $actual */
         /** @noinspection PhpUnhandledExceptionInspection */
