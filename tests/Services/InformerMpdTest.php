@@ -20,8 +20,9 @@ class InformerMpdTest extends WebTestCase
         /** @var MpdClient $mpdClient */
         $mpdClient->clear();
         $listAll = $mpdClient->listall();
+
         $files = array_map(
-            function ($file) {
+            static function ($file) {
                 return str_replace('file: ', '', $file);
             },
             $listAll
@@ -31,14 +32,17 @@ class InformerMpdTest extends WebTestCase
         foreach ($files as $file) {
             $mpdClient->add("\"$file\"");
         }
+
         $result = $mpdClient->play();
         $this->assertEmpty($result);
         sleep(2);
         $informer = self::$container->get(Informer::class);
         /** @var SourceInfo $actual */
+        /** @noinspection PhpUnhandledExceptionInspection */
         $actual = $informer->getInfo('test_voice', DataProviderTypes::MPD_TYPE);
         $mpdClient->stop();
         $mpdClient->clear();
+
 
         $this->assertEquals('test_voice', $actual->getSource());
         $this->assertEquals('online', $actual->getStatus());

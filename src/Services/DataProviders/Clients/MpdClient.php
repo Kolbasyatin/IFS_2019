@@ -249,7 +249,6 @@ class MpdClient implements ClientInterface
     {
         $answerString = end($data);
         $answer = substr($answerString, 0, 2);
-
         if ($answer !== 'OK') {
             throw new MpdClientException($answer);
         }
