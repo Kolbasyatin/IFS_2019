@@ -10,7 +10,7 @@ class MpdParser
     {
         $result = [];
         array_map(
-            function ($field) use (&$result) {
+            static function ($field) use (&$result) {
                 if ($field !== 'OK') {
                     [$key, $value] = preg_split('/:\ /', $field, 2);
                     $result[$key] = $value;

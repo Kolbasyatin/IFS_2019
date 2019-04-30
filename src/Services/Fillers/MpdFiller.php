@@ -6,6 +6,7 @@ namespace App\Services\Fillers;
 
 use App\Lib\DataProviderTypes;
 use App\Lib\Info\SourceInfo;
+use DateInterval;
 
 class MpdFiller implements FillerInterface
 {
@@ -18,8 +19,8 @@ class MpdFiller implements FillerInterface
         $answer
             ->setSongName($currentSong['Title'] ?? $currentSong['file'] ?? '')
             ->setNextSongName($nextSong['Title'] ?? $nextSong['file'] ?? '')
-            ->setLengthTime(new \DateInterval(sprintf('PT%sS', $currentSong['Time'])))
-            ->setElapsedType(new \DateInterval(sprintf('PT%sS', (int)$status['elapsed'])))
+            ->setLengthTime(new DateInterval(sprintf('PT%sS', $currentSong['Time'])))
+            ->setElapsedType(new DateInterval(sprintf('PT%sS', (int)$status['elapsed'])))
         ;
 
     }

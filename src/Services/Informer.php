@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Entity\Source;
 use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\InformerException;
 use App\Lib\Info\SourceInfo;
@@ -11,6 +12,7 @@ use App\Services\DataProviders\Factories\Config\FactoryConfigInterface;
 use App\Services\DataProviders\Factories\DataProviderFactory;
 use App\Services\DataProviders\Factories\ProviderConfigInterface;
 use App\Services\Fillers\FillerManager;
+use Exception;
 
 /**
  * Class Informer
@@ -52,28 +54,42 @@ class Informer
      * @param string $sourceName
      * @param string|null $providerType with provider type handle source (or both when null)
      * @return SourceInfo
-     * @throws \Exception
+     * @throws Exception
      */
     public function getInfo(string $sourceName, string $providerType = null): SourceInfo
     {
+
         $answer = new  SourceInfo();
+        $answer->setSource($sourceName);
+
+        if (!$this->isSourceExists($sourceName)) {
+            $answer->setStatus(SourceInfo::ERROR_STATUS)->addErrorReason('No source exists');
+
+            return $answer;
+        }
+
         if (null === $providerType) {
             $providerTypes = DataProviderTypes::getTypes();
         } else {
             $providerTypes = (array)$providerType;
         }
-        try {
-            foreach ($providerTypes as $type) {
-                $provider = $this->providerFactory->create($type);
-                $data = $provider->getData($sourceName);
-                $answer->setSource($sourceName);
-                $this->fillerManager->fill($data, $provider->getType(), $answer);
-            }
 
-        } catch (InformerException $e) {
-            $answer->setSource($sourceName);
-            $answer->setStatus(SourceInfo::ERROR_STATUS)->setErrorReason($e->getMessage());
+        $errors = [];
+        foreach ($providerTypes as $type) {
+            $provider = $this->providerFactory->create($type);
+            try {
+                $data = $provider->getData($sourceName);
+                $this->fillerManager->fill($data, $provider->getType(), $answer);
+            } catch (InformerException $e) {
+                $errors[] = sprintf('%s: %s', $provider->getType(), $e->getMessage());
+            }
         }
+
+        if (count($errors) >= count($providerTypes)) {
+            $answer->setStatus(SourceInfo::ERROR_STATUS);
+        }
+
+        $answer->setErrorReasons($errors);
 
         return $answer;
     }
@@ -97,5 +113,21 @@ class Informer
 
         return $result;
     }
+
+    private function isSourceExists(string $sourceName): bool
+    {
+        $sources = $this->getSources();
+
+        return count(
+            array_filter(
+                $sources,
+                static function ($source) use ($sourceName) {
+                    /** @var  Source $source */
+                    return $source->getName() === $sourceName;
+                }
+            )
+        ) === 1;
+    }
+
 
 }

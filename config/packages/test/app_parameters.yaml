@@ -12,5 +12,5 @@ parameters:
             password: '%env(VOICE_MPD_PASSWORD)%'
 
   app.json_mapping:
-    !php/const App\Lib\Sources::MDS_VOICE: 'http://localhost:8000/mds_voice.mp3'
+    !php/const App\Tests\Services\InformerTest::TEST_SOURCE_NAME: 'http://localhost:8000/mds_voice.mp3'
 

@@ -4,6 +4,9 @@
 namespace App\Lib\Info;
 
 
+use DateInterval;
+use DateTime;
+
 /**
  * Class InfoAnswer
  * @package App\Lib\Info
@@ -11,14 +14,10 @@ namespace App\Lib\Info;
 class SourceInfo
 {
 
-    /**
-     *
-     */
+    /** @var string  */
     public const ONLINE_STATUS = 'online';
 
-    /**
-     *
-     */
+    /** @var string  */
     public const ERROR_STATUS = 'error';
 
     /** @var string */
@@ -39,17 +38,17 @@ class SourceInfo
     /** @var string|null */
     private $nextSongName;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     private $currentTime;
 
-    /** @var \DateInterval|null */
+    /** @var DateInterval|null */
     private $elapsedType;
 
-    /** @var \DateInterval|null */
+    /** @var DateInterval|null */
     private $lengthTime;
 
-    /** @var string|null */
-    private $errorReason;
+    /** @var string[]|null */
+    private $errorReasons;
 
     /**
      * InfoAnswer constructor.
@@ -57,7 +56,7 @@ class SourceInfo
      */
     public function __construct()
     {
-        $this->currentTime = new \DateTime('now');
+        $this->currentTime = new DateTime('now');
     }
 
     public function getCurrentTime()
@@ -180,36 +179,44 @@ class SourceInfo
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getStartTime(): ?\DateTime
+    public function getStartTime(): ?DateTime
     {
+        if (!$this->getElapsedType()) {
+            return null;
+        }
+
         return (clone $this->currentTime)->modify(sprintf('- %s seconds', $this->elapsedType->format('%s')));
     }
 
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getEndTime(): ?\DateTime
+    public function getEndTime(): ?DateTime
     {
+        if (!$this->getLengthTime()) {
+            return null;
+        }
+
         return (clone $this->currentTime)->modify(sprintf('+ %s seconds', $this->lengthTime->format('%s')));
     }
 
 
     /**
-     * @return \DateInterval|null
+     * @return DateInterval|null
      */
-    public function getElapsedType(): ?\DateInterval
+    public function getElapsedType(): ?DateInterval
     {
         return $this->elapsedType;
     }
 
     /**
-     * @param \DateInterval|null $elapsedType
+     * @param DateInterval|null $elapsedType
      * @return SourceInfo
      */
-    public function setElapsedType(?\DateInterval $elapsedType): SourceInfo
+    public function setElapsedType(?DateInterval $elapsedType): SourceInfo
     {
         $this->elapsedType = $elapsedType;
 
@@ -217,18 +224,18 @@ class SourceInfo
     }
 
     /**
-     * @return \DateInterval|null
+     * @return DateInterval|null
      */
-    public function getLengthTime(): ?\DateInterval
+    public function getLengthTime(): ?DateInterval
     {
         return $this->lengthTime;
     }
 
     /**
-     * @param \DateInterval|null $lengthTime
+     * @param DateInterval|null $lengthTime
      * @return SourceInfo
      */
-    public function setLengthTime(?\DateInterval $lengthTime): SourceInfo
+    public function setLengthTime(?DateInterval $lengthTime): SourceInfo
     {
         $this->lengthTime = $lengthTime;
 
@@ -236,20 +243,27 @@ class SourceInfo
     }
 
     /**
-     * @return string|null
+     * @return string[]|null
      */
-    public function getErrorReason(): ?string
+    public function getErrorReasons(): array
     {
-        return $this->errorReason;
+        return $this->errorReasons;
     }
 
     /**
-     * @param string|null $errorReason
+     * @param array $errorReasons
      * @return SourceInfo
      */
-    public function setErrorReason(?string $errorReason): SourceInfo
+    public function setErrorReasons(array $errorReasons): SourceInfo
     {
-        $this->errorReason = $errorReason;
+        $this->errorReasons = $errorReasons;
+
+        return $this;
+    }
+
+    public function addErrorReason(string $errorReason): SourceInfo
+    {
+        $this->errorReasons[] = $errorReason;
 
         return $this;
     }

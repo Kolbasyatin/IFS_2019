@@ -2,10 +2,10 @@
 
 namespace App\Controller\Api;
 
-use App\Lib\Info\InfoQuery;
-use App\Lib\Sources;
 use App\Services\Informer;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,39 +20,25 @@ class InformerController extends AbstractController
     /**
      * @Route("/sources")
      * @param Informer $informer
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
-    public function sources(Informer $informer)
+    public function sources(Informer $informer): JsonResponse
     {
         return $this->json($informer->getSources());
     }
 
     /**
      * @param Informer $informer
-     * @param string $type
+     * @param string $source
      * @return Response
-     * @Route( "/voice/{type}", defaults={"type" : "json"})
+     * @throws Exception
+     * @Route( "/source/{source}")
      */
-    public function voice(Informer $informer, string $type): Response
+    public function sourceInfo(Informer $informer, string $source): Response
     {
-        $query = new InfoQuery();
-        $query->setSource(Sources::MDS_VOICE)->setProviderType($type);
-        $info = $informer->getInfo((new InfoQuery())->setSource('voice'));
+        $info = $informer->getInfo($source);
 
         return $this->json($info, 200, [], ['json_encode_options' => JSON_UNESCAPED_UNICODE]);
     }
 
-    /**
-     * @param Informer $informer
-     * @return Response
-     * @Route("/music/{type}", defaults={"type" : "json"})
-     */
-    public function music(Informer $informer, string $type): Response
-    {
-        $query = new InfoQuery();
-        $query->setSource(Sources::MDS_MUSIC)->setProviderType($type);
-        $info = $informer->getInfo($query);
-
-        return $this->json($info, 200, [], ['json_encode_options' => JSON_UNESCAPED_UNICODE]);
-    }
 }

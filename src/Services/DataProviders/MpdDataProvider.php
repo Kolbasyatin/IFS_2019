@@ -71,7 +71,7 @@ class MpdDataProvider implements DataProviderInterface
                 'nextSong' => $nextSong
             ];
             /** Не подсвечивает throws когда __call */
-        } catch (MpdClientException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (MpdClientException $exception) {
             throw new DataProviderException('Mpd client error. '.$exception->getMessage());
         }
 

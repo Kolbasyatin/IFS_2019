@@ -4,7 +4,6 @@
 namespace App\Tests\Services;
 
 
-use App\Entity\Source;
 use App\Lib\DataProviderTypes;
 use App\Lib\Exceptions\DataClientException;
 use App\Lib\Info\SourceInfo;
@@ -25,7 +24,7 @@ class InformerJsonTest extends WebTestCase
         $this->jsonInit($this->getJsonData());
 
         /** @var SourceInfo $actual */
-        $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE, DataProviderTypes::JSON_TYPE);
+        $actual = static::$container->get(Informer::class)->getInfo(InformerTest::TEST_SOURCE_NAME, DataProviderTypes::JSON_TYPE);
         $this->assertEquals('online', $actual->getStatus());
 
         /** @var Serializer $serializer */
@@ -42,9 +41,9 @@ class InformerJsonTest extends WebTestCase
     {
         $this->jsonInit('');
         /** @var SourceInfo $actual */
-        $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
+        $actual = static::$container->get(Informer::class)->getInfo(InformerTest::TEST_SOURCE_NAME);
         $this->assertEquals('error', $actual->getStatus());
-        $this->assertSame('Bad json from client!', $actual->getErrorReason());
+        $this->assertSame('json: Bad json from client!', $actual->getErrorReasons()[0]);
     }
 
     public function testGetClientThrowException(): void
@@ -53,9 +52,9 @@ class InformerJsonTest extends WebTestCase
         $mock->expects($this->once())->method('execute')->willThrowException(new DataClientException('Error for test.'));
         $this->jsonInit('', $mock);
         /** @var SourceInfo $actual */
-        $actual = static::$container->get(Informer::class)->getInfo(Sources::MDS_VOICE);
+        $actual = static::$container->get(Informer::class)->getInfo(InformerTest::TEST_SOURCE_NAME);
         $this->assertEquals('error', $actual->getStatus());
-        $this->assertEquals('Error for test.', $actual->getErrorReason());
+        $this->assertEquals('json: Error for test.', $actual->getErrorReasons()[0]);
     }
 
     private function getJsonData(): string
