@@ -57,7 +57,7 @@
         },
         methods: {
             addComment() {
-                this.addComment();
+                /*this.addComment();*/ /*Что за хрень ?*/
             },
             ...mapMutations('comments', {
                 addComment: 'addCommentToStart'
