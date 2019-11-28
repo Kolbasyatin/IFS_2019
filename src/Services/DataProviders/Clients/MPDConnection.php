@@ -83,7 +83,7 @@ class MPDConnection
     {
         ['host' => $url, 'port' => $port] = parse_url($this->url);
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        //** Простите, с работой с сокетами приходится ставить подавление.  */
+        //** Sorry for the '@', no another way.  */
         if (false === @socket_connect($this->socket, $url, $port)) {
             throw new MPDConnectionException('No connection to url '.$url);
         }

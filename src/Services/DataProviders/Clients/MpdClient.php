@@ -7,6 +7,7 @@ namespace App\Services\DataProviders\Clients;
 use App\Lib\Exceptions\MpdClientException;
 
 /**
+ * TODO: There is a need to create appropriate commands description
  * Class MpdClient
  * @package App\Services\DataProviders\Clients
  * @method array add($URI)
